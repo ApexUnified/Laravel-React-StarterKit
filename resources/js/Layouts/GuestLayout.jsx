@@ -1,12 +1,15 @@
 import ApplicationLogo from 'asset/assets/images/logo/auth-logo.svg';
 import CommonGridShape from '@/partials/common-grid-shape';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
+import Preloader from '@/partials/Preloader';
+import Toast from '@/Components/Toast';
 
 export default function GuestLayout({ children }) {
 
-
+    const { flash } = usePage().props;
     const [darkMode, setDarkMode] = useState(false);
+    const [loaded, setLoaded] = useState(true);
 
 
     useEffect(() => {
@@ -25,7 +28,18 @@ export default function GuestLayout({ children }) {
     return (
         <>
 
-            <div className="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
+
+
+            <Preloader loaded={loaded} setLoaded={setLoaded} />
+
+            <Toast
+                flash={flash}
+            />
+
+
+
+
+            <div className="relative p-6 bg-slate-50 z-1 dark:bg-gray-900 sm:p-0">
                 <div
                     className="relative flex flex-col justify-center w-full h-screen dark:bg-gray-900 sm:p-0 lg:flex-row"
                 >

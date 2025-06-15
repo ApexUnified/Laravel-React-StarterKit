@@ -15,8 +15,7 @@
     @inertiaHead
 </head>
 
-<body x-data="{ page: 'comingSoon', 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }" class="antialiased">
-    @include('preloader')
+<body class="antialiased">
     @inertia
 </body>
 

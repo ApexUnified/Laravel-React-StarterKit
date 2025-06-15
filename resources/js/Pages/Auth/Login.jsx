@@ -14,7 +14,6 @@ export default function Login({ canResetPassword }) {
         remember: false,
     });
 
-    console.log(errors);
 
     const submit = (e) => {
         e.preventDefault();
@@ -30,8 +29,8 @@ export default function Login({ canResetPassword }) {
 
             <div className="flex flex-col flex-1 w-full lg:w-1/2 md:my-5">
                 <div className="w-full max-w-md pt-10 mx-auto">
-                    <a
-                        href="#"
+                    <Link
+                        href={route("home")}
                         className="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-white dark:hover:text-gray-300"
                     >
                         <svg
@@ -51,7 +50,7 @@ export default function Login({ canResetPassword }) {
                             />
                         </svg>
                         Back to Website
-                    </a>
+                    </Link>
                 </div>
                 <div
                     className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto"
@@ -88,6 +87,7 @@ export default function Login({ canResetPassword }) {
                                             onChange={(e) => setData("email", e.target.value)}
                                             placeholder="info@gmail.com"
                                             className="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
+                                            required
                                         />
 
                                         {errors.email && <span className="text-red-500 dark:text-white ">{errors.email}</span>}
@@ -111,6 +111,7 @@ export default function Login({ canResetPassword }) {
                                                 name='password'
                                                 id='password'
                                                 onChange={(e) => setData("password", e.target.value)}
+                                                required
                                             />
                                             <span
                                                 className="absolute z-30 text-gray-500 -translate-y-1/2 cursor-pointer right-4 top-1/2 dark:text-gray-400"
@@ -222,6 +223,7 @@ export default function Login({ canResetPassword }) {
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                                                 </svg>
                                             }
+                                            Spinner={processing}
                                         />
                                     </div>
                                 </div>
