@@ -1,4 +1,4 @@
-import ApplicationLogo from 'asset/assets/images/logo/auth-logo.svg';
+import ApplicationLogo from 'asset/assets/images/logo/SystemLogo_ForGuest.png';
 import CommonGridShape from '@/partials/common-grid-shape';
 import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
@@ -53,12 +53,10 @@ export default function GuestLayout({ children }) {
 
                             <CommonGridShape />
                             <div className="flex flex-col items-center max-w-xs">
-                                <a href="index.html" className="block mb-4">
+                                <a href="index.html" className="block mb-4 rounded-2xl dark:none">
                                     <img src={ApplicationLogo} alt="Logo" />
                                 </a>
-                                <p className="text-center text-gray-400 dark:text-white/60">
-                                    Free and Open-Source Tailwind CSS Admin Dashboard Template
-                                </p>
+
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import userProfile from 'asset/assets/images/user/user-01.jpg';
+
 import not1 from 'asset/assets/images/user/user-01.jpg';
 import not2 from 'asset/assets/images/user/user-02.jpg';
 import not3 from 'asset/assets/images/user/user-03.jpg';
@@ -89,16 +89,16 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
         <>
 
             <header
-                className="sticky top-0 z-[99999] flex w-full border-gray-200 bg-white lg:border-b dark:border-gray-800 dark:bg-gray-900"
+                className="z-[9999] flex w-full border-gray-200 bg-white lg:border-b dark:border-gray-800 dark:bg-gray-900"
             >
                 <div
-                    className="flex grow flex-col items-center justify-between lg:flex-row lg:px-6"
+                    className="flex flex-col items-center justify-between grow lg:flex-row lg:px-6"
                 >
                     <div
-                        className="flex w-full items-center justify-between gap-2 border-b border-gray-200 px-3 py-3 sm:gap-4 lg:justify-normal lg:border-b-0 lg:px-0 lg:py-4 dark:border-gray-800"
+                        className="flex items-center justify-between w-full gap-2 px-3 py-3 border-b border-gray-200 sm:gap-4 lg:justify-normal lg:border-b-0 lg:px-0 lg:py-4 dark:border-gray-800"
                     >
 
-                        <button className={`${sidebarToggle ? 'lg:bg-transparent dark:lg:bg-transparent bg-gray-100 dark:bg-gray-800' : ''} z-99999 flex h-10 w-10 items-center justify-center rounded-lg border-gray-200 text-gray-500 lg:h-11 lg:w-11 lg:border dark:border-gray-800 dark:text-gray-400`}
+                        <button className={`${sidebarToggle ? 'md:bg-transparent dark:lg:bg-transparent bg-gray-100 dark:bg-gray-800' : ''} z-99999 flex h-10 w-10 items-center justify-center rounded-lg border-gray-200 text-gray-500 lg:h-11 lg:w-11 lg:border dark:border-gray-800 dark:text-gray-400`}
                             onClick={() => setSidebarToggle(!sidebarToggle)}
                         >
                             <svg
@@ -131,29 +131,13 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                     fill=""
                                 />
                             </svg>
-
-
-                            <svg className={`${sidebarToggle ? 'block lg:hidden' : 'hidden'} fill-current `}
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    clipRule="evenodd"
-                                    d="M6.21967 7.28131C5.92678 6.98841 5.92678 6.51354 6.21967 6.22065C6.51256 5.92775 6.98744 5.92775 7.28033 6.22065L11.999 10.9393L16.7176 6.22078C17.0105 5.92789 17.4854 5.92788 17.7782 6.22078C18.0711 6.51367 18.0711 6.98855 17.7782 7.28144L13.0597 12L17.7782 16.7186C18.0711 17.0115 18.0711 17.4863 17.7782 17.7792C17.4854 18.0721 17.0105 18.0721 16.7176 17.7792L11.999 13.0607L7.28033 17.7794C6.98744 18.0722 6.51256 18.0722 6.21967 17.7794C5.92678 17.4865 5.92678 17.0116 6.21967 16.7187L10.9384 12L6.21967 7.28131Z"
-                                    fill=""
-                                />
-                            </svg>
                         </button>
 
 
                         <Link href={route("dashboard")} className="lg:hidden">
-                            <img className="dark:hidden" src={ApplicationLogoLight} alt="Logo" />
+                            <img className="dark:hidden h-[140px] w-auto " src={ApplicationLogoLight} alt="Logo" />
                             <img
-                                className="hidden dark:block"
+                                className="hidden dark:block  h-[140px] w-auto"
                                 src={ApplicationLogoDark}
                                 alt="Logo"
                             />
@@ -185,7 +169,7 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                         <div className="hidden lg:block">
                             <form>
                                 <div className="relative">
-                                    <span className="absolute top-1/2 left-4 -translate-y-1/2">
+                                    <span className="absolute -translate-y-1/2 top-1/2 left-4">
                                         <svg
                                             className="fill-gray-500 dark:fill-gray-400"
                                             width="20"
@@ -224,10 +208,10 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
 
                     <div className={`${menuToggle ? 'flex' : 'hidden'} shadow-theme-md w-full items-center justify-between gap-4 px-5 py-4 lg:flex lg:justify-end lg:px-0 lg:shadow-none  `}
                     >
-                        <div className="2xsm:gap-3 flex items-center gap-2">
+                        <div className="flex items-center gap-2 2xsm:gap-3">
 
                             <button
-                                className="hover:text-dark-900 relative flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+                                className="relative flex items-center justify-center text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:text-dark-900 h-11 w-11 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
                                 onClick={() => {
                                     setDarkMode(!darkMode);
                                     localStorage.setItem('darkMode', !darkMode);
@@ -270,7 +254,7 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                 ref={dropdownRef}
                             >
                                 <button
-                                    className="hover:text-dark-900 relative flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+                                    className="relative flex items-center justify-center text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:text-dark-900 h-11 w-11 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
                                     onClick={() => {
                                         setNotifying(false);
                                         setNotificationDropdown(prev => !prev);
@@ -279,7 +263,7 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                     <span className={`${!notifying ? 'hidden' : 'flex'} absolute top-0.5 right-0 z-1 h-2 w-2 rounded-full bg-orange-400 `}
                                     >
                                         <span
-                                            className="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"
+                                            className="absolute inline-flex w-full h-full bg-orange-400 rounded-full opacity-75 -z-1 animate-ping"
                                         ></span>
                                     </span >
                                     <svg
@@ -304,7 +288,7 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                         className="shadow-2xl dark:bg-gray-900 absolute -right-[240px] mt-[17px] flex h-[300px] w-[350px] flex-col rounded-2xl border border-gray-200 bg-white p-3 sm:w-[361px] lg:right-0 dark:border-gray-800"
                                     >
                                         <div
-                                            className="mb-3 flex items-center justify-between border-b border-gray-100 pb-3 dark:border-gray-800"
+                                            className="flex items-center justify-between pb-3 mb-3 border-b border-gray-100 dark:border-gray-800"
                                         >
                                             <h5
                                                 className="text-lg font-semibold text-gray-800 dark:text-white/90"
@@ -336,14 +320,14 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
 
 
 
-                                        <ul className="custom-scrollbar flex h-auto flex-col overflow-y-auto">
+                                        <ul className="flex flex-col h-auto overflow-y-auto custom-scrollbar">
                                             <li>
                                                 <a
                                                     className="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
                                                     href="#"
                                                 >
                                                     <span
-                                                        className="relative z-1 block h-10 w-full max-w-10 rounded-full"
+                                                        className="relative block w-full h-10 rounded-full z-1 max-w-10"
                                                     >
                                                         <img
                                                             src={not1}
@@ -369,10 +353,10 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                                         </span>
 
                                                         <span
-                                                            className="text-theme-xs flex items-center gap-2 text-gray-500 dark:text-gray-400"
+                                                            className="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400"
                                                         >
                                                             <span>Project</span>
-                                                            <span className="h-1 w-1 rounded-full bg-gray-400"></span>
+                                                            <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
                                                             <span>5 min ago</span>
                                                         </span>
                                                     </span>
@@ -385,7 +369,7 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                                     href="#"
                                                 >
                                                     <span
-                                                        className="relative z-1 block h-10 w-full max-w-10 rounded-full"
+                                                        className="relative block w-full h-10 rounded-full z-1 max-w-10"
                                                     >
                                                         <img
                                                             src={not2}
@@ -411,10 +395,10 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                                         </span>
 
                                                         <span
-                                                            className="text-theme-xs flex items-center gap-2 text-gray-500 dark:text-gray-400"
+                                                            className="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400"
                                                         >
                                                             <span>Project</span>
-                                                            <span className="h-1 w-1 rounded-full bg-gray-400"></span>
+                                                            <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
                                                             <span>8 min ago</span>
                                                         </span>
                                                     </span>
@@ -427,7 +411,7 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                                     href="#"
                                                 >
                                                     <span
-                                                        className="relative z-1 block h-10 w-full max-w-10 rounded-full"
+                                                        className="relative block w-full h-10 rounded-full z-1 max-w-10"
                                                     >
                                                         <img
                                                             src={not3}
@@ -453,10 +437,10 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                                         </span>
 
                                                         <span
-                                                            className="text-theme-xs flex items-center gap-2 text-gray-500 dark:text-gray-400"
+                                                            className="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400"
                                                         >
                                                             <span>Project</span>
-                                                            <span className="h-1 w-1 rounded-full bg-gray-400"></span>
+                                                            <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
                                                             <span>15 min ago</span>
                                                         </span>
                                                     </span>
@@ -471,7 +455,7 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                                     href="#"
                                                 >
                                                     <span
-                                                        className="relative z-1 block h-10 w-full max-w-10 rounded-full"
+                                                        className="relative block w-full h-10 rounded-full z-1 max-w-10"
                                                     >
                                                         <img
                                                             src={not4}
@@ -497,10 +481,10 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                                         </span>
 
                                                         <span
-                                                            className="text-theme-xs flex items-center gap-2 text-gray-500 dark:text-gray-400"
+                                                            className="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400"
                                                         >
                                                             <span>Project</span>
-                                                            <span className="h-1 w-1 rounded-full bg-gray-400"></span>
+                                                            <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
                                                             <span>15 min ago</span>
                                                         </span>
                                                     </span>
@@ -535,11 +519,11 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                 href="#"
                                 onClick={() => setProfileDropdown(!profileDropdown)}
                             >
-                                <span className="mr-3 h-11 w-11 overflow-hidden rounded-full">
-                                    <img src={userProfile} alt="User" />
+                                <span className="flex items-center justify-center mr-3 overflow-hidden bg-white border border-gray-200 rounded-full hover:text-dark-900 h-11 w-11 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white">
+                                    {user.avatar}
                                 </span>
 
-                                <span className="text-theme-sm mr-1 block font-medium"> {user.name.length > 10 ? user.name.slice(0, 10) + "..." : user.name} </span>
+                                <span className="block mr-1 font-medium text-theme-sm"> {user.name.length > 10 ? user.name.slice(0, 10) + "..." : user.name} </span>
 
                                 <svg
                                     className={` ${profileDropdown && "rotate-180"} stroke-gray-500 dark:stroke-gray-400`}
@@ -566,7 +550,7 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                 >
                                     <div>
                                         <span
-                                            className="text-theme-sm block font-medium text-gray-700 dark:text-gray-400"
+                                            className="block font-medium text-gray-700 text-theme-sm dark:text-gray-400"
                                         >
                                             {user.name.length > 15 ? user.name.slice(0, 15) + "..." : user.name ?? "User"}
                                         </span>
@@ -578,12 +562,12 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                     </div>
 
                                     <ul
-                                        className="flex flex-col gap-1 border-b border-gray-200 pt-4 pb-3 dark:border-gray-800"
+                                        className="flex flex-col gap-1 pt-4 pb-3 border-b border-gray-200 dark:border-gray-800"
                                     >
                                         <li>
-                                            <a
-                                                href="#"
-                                                className="group text-theme-sm flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+                                            <Link
+                                                href={route("profile.index")}
+                                                className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
                                             >
                                                 <svg
                                                     className="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300"
@@ -601,12 +585,12 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                                     />
                                                 </svg>
                                                 Edit profile
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
                                             <a
                                                 href="#"
-                                                className="group text-theme-sm flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+                                                className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
                                             >
                                                 <svg
                                                     className="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300"
@@ -629,7 +613,7 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                         <li>
                                             <a
                                                 href="#"
-                                                className="group text-theme-sm flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+                                                className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
                                             >
                                                 <svg
                                                     className="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300"
@@ -654,7 +638,7 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                         onClick={() => {
                                             logout(route("logout"));
                                         }}
-                                        className="group text-theme-sm mt-3 flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+                                        className="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
                                     >
                                         {logoutProcessing ? (
                                             <Spinner />

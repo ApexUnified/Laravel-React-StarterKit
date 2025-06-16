@@ -1,5 +1,5 @@
 
-import SpinnerButton from '@/Components/SpinnerButton';
+import PrimaryButton from '@/Components/PrimaryButton';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
@@ -51,7 +51,7 @@ export default function VerifyEmail() {
 
             <div className="flex flex-col flex-1 w-full lg:w-1/2 md:my-5">
                 <div className="w-full max-w-md pt-10 mx-auto">
-                    <SpinnerButton
+                    <PrimaryButton
                         ClassName="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-white dark:hover:text-gray-300"
                         Disabled={LogoutProcessing}
                         Type={"button"}
@@ -106,10 +106,10 @@ export default function VerifyEmail() {
 
                             {verificationSent ? (
                                 <>
-                                    <SpinnerButton
+                                    <PrimaryButton
                                         Text={"Email Verification Link"}
                                         Icon={
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 mx-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="mx-1 size-6">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
                                             </svg>
                                         }
@@ -119,15 +119,15 @@ export default function VerifyEmail() {
 
                                     />
 
-                                    <p className="text-gray-800 dark:text-white mt-3">Retry Will Be Available after <span className="text-green-800">{timer}</span> seconds</p>
+                                    <p className="mt-3 text-gray-800 dark:text-white">Retry Will Be Available after <span className="text-green-800">{timer}</span> seconds</p>
                                 </>
                             ) :
 
                                 (
-                                    <SpinnerButton
+                                    <PrimaryButton
                                         Text={"Email Verification Link"}
                                         Icon={
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 mx-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="mx-1 size-6">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
                                             </svg>
                                         }

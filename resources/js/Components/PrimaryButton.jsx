@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function SpinnerButton({ Disabled, Text, ClassName = null, Type, Icon, Action, Spinner = false }) {
+export default function PrimaryButton({ Disabled, Text, ClassName = null, Type, Icon, Action, Spinner = false, CustomClass = null }) {
     return (
 
         <>
@@ -10,7 +10,7 @@ export default function SpinnerButton({ Disabled, Text, ClassName = null, Type, 
                 <button disabled={Disabled}
                     type={Type}
                     onClick={Action}
-                    className={"flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition bg-blue-700 rounded-lg dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10 shadow-theme-xs hover:bg-blue-600 " + (Disabled && "opacity-25  dark:opacity-40")}>
+                    className={`flex items-center justify-center   my-3 px-4 py-3 text-sm font-medium text-white transition bg-blue-700 rounded-xl dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10 shadow-theme-xs hover:bg-blue-600 ${CustomClass ? CustomClass : "w-full"} ${Disabled && "opacity-25  dark:opacity-40"}`}>
                     {Text}
 
 
@@ -26,7 +26,7 @@ export default function SpinnerButton({ Disabled, Text, ClassName = null, Type, 
                     )
 
                         : (
-                            Icon
+                            <div className="mx-2">{Icon}</div>
                         )
                     }
 
@@ -51,7 +51,7 @@ export default function SpinnerButton({ Disabled, Text, ClassName = null, Type, 
                         )
 
                             : (
-                                Icon
+                                <div className="mx-2">{Icon}</div>
                             )
                         }
 

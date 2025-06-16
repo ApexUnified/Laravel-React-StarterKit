@@ -5,11 +5,11 @@ import Sidebar from '@/partials/Sidebar';
 import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import flatpickr from "flatpickr";
-import ApplicationLogoIcon from 'asset/assets/images/logo/logo-icon.svg';
-import ApplicationLogoLight from 'asset/assets/images/logo/auth-logo.svg';
-import ApplicationLogoDark from 'asset/assets/images/logo/auth-logo.svg';
+import ApplicationLogoIcon from 'asset/assets/images/logo/Favicon.png';
+import ApplicationLogoLight from 'asset/assets/images/logo/SystemLogoLight.png';
+import ApplicationLogoDark from 'asset/assets/images/logo/SystemLogo_ForGuest.png';
 import Toast from '@/Components/Toast';
-export default function AuthenticatedLayout({ header, children }) {
+export default function AuthenticatedLayout({ children }) {
 
 
     useEffect(() => {
@@ -43,7 +43,7 @@ export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
     const { flash } = usePage().props;
     const [loaded, setLoaded] = useState(true);
-    const [sidebarToggle, setSidebarToggle] = useState(false);
+    const [sidebarToggle, setSidebarToggle] = useState(true);
     const [darkMode, setDarkMode] = useState(false);
 
 
@@ -55,7 +55,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
 
 
-                <Sidebar sidebarToggle={sidebarToggle} ApplicationLogoIcon={ApplicationLogoIcon} ApplicationLogoLight={ApplicationLogoLight} ApplicationLogoDark={ApplicationLogoDark} />
+                <Sidebar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} ApplicationLogoIcon={ApplicationLogoIcon} ApplicationLogoLight={ApplicationLogoLight} ApplicationLogoDark={ApplicationLogoDark} />
 
 
 

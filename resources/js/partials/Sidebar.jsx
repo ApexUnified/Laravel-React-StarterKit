@@ -1,32 +1,56 @@
 import { Link } from '@inertiajs/react';
 import React, { useState } from 'react';
 
-export default function Sidebar({ sidebarToggle, ApplicationLogoIcon, ApplicationLogoLight, ApplicationLogoDark }) {
+export default function Sidebar({ sidebarToggle, setSidebarToggle, ApplicationLogoIcon, ApplicationLogoLight, ApplicationLogoDark }) {
     const [selected, setSelected] = useState(null);
 
     return (
         <>
             <aside
-                className={`${sidebarToggle ? 'translate-x-0 lg:w-[90px]' : '-translate-x-full'} sidebar fixed left-0 top-0 z-[9999] flex h-screen w-[290px] flex-col overflow-y-hidden border-r border-gray-200 bg-white px-5 dark:border-gray-800 dark:bg-gray-900 lg:static lg:translate-x-0`}>
+                className={`${sidebarToggle ? 'translate-x-0 lg:w-[90px]' : '-translate-x-full'
+                    } sidebar fixed left-0 top-0 z-[99999] flex h-screen w-[290px] flex-col overflow-y-hidden border-r border-gray-200 bg-white px-5 dark:border-gray-800 dark:bg-gray-900 lg:static lg:translate-x-0`}
+            >
                 <div
                     className={`flex items-center ${sidebarToggle ? 'justify-center' : 'justify-between'} gap-2 pt-8 sidebar-header pb-7`}
                 >
                     <Link href={route("dashboard")}>
                         <span className={`logo ${sidebarToggle ? 'hidden' : ''}`} >
-                            <img className="dark:hidden" src={ApplicationLogoLight} alt="Logo" />
+                            <img className="dark:hidden h-[140px] w-auto" src={ApplicationLogoLight} alt="Logo" />
+
                             <img
-                                className="hidden dark:block"
+                                className="hidden dark:block h-[140px] w-auto"
                                 src={ApplicationLogoDark}
                                 alt="Logo"
                             />
                         </span>
 
-                        <img
-                            className={`logo-icon ${sidebarToggle ? 'lg:block' : 'hidden'}`}
-                            src={ApplicationLogoIcon}
-                            alt="Logo" />
+
                     </Link>
+
+
+
+                    <button className={`${sidebarToggle ? 'lg:bg-transparent  dark:lg:bg-transparent bg-gray-100 dark:bg-gray-800' : ''} z-99999 flex h-10 w-10 items-center justify-center rounded-lg border-gray-200 text-gray-500 lg:h-11 lg:w-11 lg:border dark:border-gray-800 dark:text-gray-400 lg:hidden`}
+                        onClick={() => setSidebarToggle(!sidebarToggle)}
+                    >
+
+                        <svg className={`${sidebarToggle ? 'block lg:hidden' : 'hidden'} fill-current `}
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M6.21967 7.28131C5.92678 6.98841 5.92678 6.51354 6.21967 6.22065C6.51256 5.92775 6.98744 5.92775 7.28033 6.22065L11.999 10.9393L16.7176 6.22078C17.0105 5.92789 17.4854 5.92788 17.7782 6.22078C18.0711 6.51367 18.0711 6.98855 17.7782 7.28144L13.0597 12L17.7782 16.7186C18.0711 17.0115 18.0711 17.4863 17.7782 17.7792C17.4854 18.0721 17.0105 18.0721 16.7176 17.7792L11.999 13.0607L7.28033 17.7794C6.98744 18.0722 6.51256 18.0722 6.21967 17.7794C5.92678 17.4865 5.92678 17.0116 6.21967 16.7187L10.9384 12L6.21967 7.28131Z"
+                                fill=""
+                            />
+                        </svg>
+                    </button>
                 </div>
+
+
 
                 <div className="flex flex-col flex-1 overflow-y-auto duration-300 ease-linear no-scrollbar">
                     <nav>
@@ -57,7 +81,7 @@ export default function Sidebar({ sidebarToggle, ApplicationLogoIcon, Applicatio
 
 
                                         <svg
-                                            className={route().current() === "dashboard" && "menu-item-icon-active"}
+                                            className={route().current() === "dashboard" ? "menu-item-icon-active" : "menu-item-icon-inactive"}
                                             width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path fillRule="evenodd" clipRule="evenodd" d="M5.5 3.25C4.25736 3.25 3.25 4.25736 3.25 5.5V8.99998C3.25 10.2426 4.25736 11.25 5.5 11.25H9C10.2426 11.25 11.25 10.2426 11.25 8.99998V5.5C11.25 4.25736 10.2426 3.25 9 3.25H5.5ZM4.75 5.5C4.75 5.08579 5.08579 4.75 5.5 4.75H9C9.41421 4.75 9.75 5.08579 9.75 5.5V8.99998C9.75 9.41419 9.41421 9.74998 9 9.74998H5.5C5.08579 9.74998 4.75 9.41419 4.75 8.99998V5.5ZM5.5 12.75C4.25736 12.75 3.25 13.7574 3.25 15V18.5C3.25 19.7426 4.25736 20.75 5.5 20.75H9C10.2426 20.75 11.25 19.7427 11.25 18.5V15C11.25 13.7574 10.2426 12.75 9 12.75H5.5ZM4.75 15C4.75 14.5858 5.08579 14.25 5.5 14.25H9C9.41421 14.25 9.75 14.5858 9.75 15V18.5C9.75 18.9142 9.41421 19.25 9 19.25H5.5C5.08579 19.25 4.75 18.9142 4.75 18.5V15ZM12.75 5.5C12.75 4.25736 13.7574 3.25 15 3.25H18.5C19.7426 3.25 20.75 4.25736 20.75 5.5V8.99998C20.75 10.2426 19.7426 11.25 18.5 11.25H15C13.7574 11.25 12.75 10.2426 12.75 8.99998V5.5ZM15 4.75C14.5858 4.75 14.25 5.08579 14.25 5.5V8.99998C14.25 9.41419 14.5858 9.74998 15 9.74998H18.5C18.9142 9.74998 19.25 9.41419 19.25 8.99998V5.5C19.25 5.08579 18.9142 4.75 18.5 4.75H15ZM15 12.75C13.7574 12.75 12.75 13.7574 12.75 15V18.5C12.75 19.7426 13.7574 20.75 15 20.75H18.5C19.7426 20.75 20.75 19.7427 20.75 18.5V15C20.75 13.7574 19.7426 12.75 18.5 12.75H15ZM14.25 15C14.25 14.5858 14.5858 14.25 15 14.25H18.5C18.9142 14.25 19.25 14.5858 19.25 15V18.5C19.25 18.9142 18.9142 19.25 18.5 19.25H15C14.5858 19.25 14.25 18.9142 14.25 18.5V15Z" fill=""></path>
                                         </svg>
@@ -89,14 +113,96 @@ export default function Sidebar({ sidebarToggle, ApplicationLogoIcon, Applicatio
                                 <li>
                                     <a
                                         onClick={() => {
+                                            if (selected === "Categories") {
+                                                setSelected(null);
+                                            } else {
+                                                setSelected("Categories");
+                                            }
+                                        }}
+
+                                        className={`menu-item group cursor-pointer ${(route().current().includes("category.") || selected === "Categories") ? "menu-item-active" : "menu-item-inactive"}  `}
+
+                                    >
+
+
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
+                                        </svg>
+
+
+
+
+                                        <span className={`menu-item-text ${sidebarToggle ? 'lg:hidden' : ''}`}>
+                                            Categories
+                                        </span>
+
+
+
+
+
+                                        <svg
+                                            className={`menu-item-arrow absolute right-2.5 top-1/2 -translate-y-1/2 stroke-current
+                                            ${route().current().includes("category.") || selected === "Categories" && " menu-item-arrow-active"} ${sidebarToggle ? 'lg:hidden' : ''}`}
+                                            width="20"
+                                            height="20"
+                                            viewBox="0 0 20 20"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M4.79175 7.39584L10.0001 12.6042L15.2084 7.39585"
+                                                stroke=""
+                                                strokeWidth="1.5"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </a>
+
+                                    <div
+                                        className={`overflow-hidden transform translate ${selected === "Categories" ? "block" : "hidden"}`}
+                                    >
+                                        <ul
+                                            className={`flex flex-col gap-1 mt-2 menu-dropdown pl-9 ${sidebarToggle ? 'lg:hidden' : 'flex'} `}
+                                        >
+                                            <li>
+                                                <Link
+                                                    href={route("category.index")}
+                                                    className={`menu-dropdown-item group ${route().current() === "category.index" ? "menu-dropdown-item-active" : "menu-dropdown-item-inactive"}`}
+
+                                                >
+                                                    Category List
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    href={route("category.create")}
+                                                    className={`menu-dropdown-item group ${route().current() === "category.create" ? "menu-dropdown-item-active" : "menu-dropdown-item-inactive"}`}
+
+                                                >
+                                                    Create Category
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </li>
+
+
+
+                                <li>
+                                    <a
+                                        onClick={() => {
                                             if (selected === "demoDropdown") {
                                                 setSelected(null);
                                             } else {
                                                 setSelected("demoDropdown");
                                             }
                                         }}
-                                        href="#"
-                                        className={`menu-item group ${selected === "demoDropdown" ? "menu-item-active" : "menu-item-inactive"}`}
+
+                                        className={`menu-item group cursor-pointer ${selected === "demoDropdown" ? "menu-item-active" : "menu-item-inactive"}`}
 
                                     >
                                         <svg
@@ -170,87 +276,7 @@ export default function Sidebar({ sidebarToggle, ApplicationLogoIcon, Applicatio
 
 
 
-                                <li>
-                                    <a
-                                        onClick={() => {
-                                            if (selected === "demoDropdown2") {
-                                                setSelected(null);
-                                            } else {
-                                                setSelected("demoDropdown2");
-                                            }
-                                        }}
-                                        href="#"
-                                        className={`menu-item group ${selected === "demoDropdown2" ? "menu-item-active" : "menu-item-inactive"}`}
 
-                                    >
-                                        <svg
-                                            className={`${selected === "demoDropdown2" ? "menu-item-icon-active" : "menu-item-icon-inactive"}`}
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                fillRule="evenodd"
-                                                clipRule="evenodd"
-                                                d="M14 2.75C14 2.33579 14.3358 2 14.75 2C15.1642 2 15.5 2.33579 15.5 2.75V5.73291L17.75 5.73291H19C19.4142 5.73291 19.75 6.0687 19.75 6.48291C19.75 6.89712 19.4142 7.23291 19 7.23291H18.5L18.5 12.2329C18.5 15.5691 15.9866 18.3183 12.75 18.6901V21.25C12.75 21.6642 12.4142 22 12 22C11.5858 22 11.25 21.6642 11.25 21.25V18.6901C8.01342 18.3183 5.5 15.5691 5.5 12.2329L5.5 7.23291H5C4.58579 7.23291 4.25 6.89712 4.25 6.48291C4.25 6.0687 4.58579 5.73291 5 5.73291L6.25 5.73291L8.5 5.73291L8.5 2.75C8.5 2.33579 8.83579 2 9.25 2C9.66421 2 10 2.33579 10 2.75L10 5.73291L14 5.73291V2.75ZM7 7.23291L7 12.2329C7 14.9943 9.23858 17.2329 12 17.2329C14.7614 17.2329 17 14.9943 17 12.2329L17 7.23291L7 7.23291Z"
-                                                fill=""
-                                            />
-                                        </svg>
-
-
-                                        <span className={`menu-item-text ${sidebarToggle ? 'lg:hidden' : ''}`}>
-                                            Demo Dropdown 2
-                                        </span>
-
-
-                                        <svg
-                                            className={`menu-item-arrow absolute right-2.5 top-1/2 -translate-y-1/2 stroke-current ${selected === "demoDropdown2" && " menu-item-arrow-active"} ${sidebarToggle ? 'lg:hidden' : ''}`}
-                                            width="20"
-                                            height="20"
-                                            viewBox="0 0 20 20"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M4.79175 7.39584L10.0001 12.6042L15.2084 7.39585"
-                                                stroke=""
-                                                strokeWidth="1.5"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                        </svg>
-                                    </a>
-
-                                    <div
-                                        className={`overflow-hidden transform translate ${selected === "demoDropdown2" ? "block" : "hidden"}`}
-                                    >
-                                        <ul
-                                            className={`flex flex-col gap-1 mt-2 menu-dropdown pl-9 ${sidebarToggle ? 'lg:hidden' : 'flex'} `}
-                                        >
-                                            <li>
-                                                <a
-                                                    href="#"
-                                                    className="menu-dropdown-item group menu-dropdown-item-inactive"
-
-                                                >
-                                                    DD1
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="#"
-                                                    className="menu-dropdown-item group menu-dropdown-item-inactive"
-
-                                                >
-                                                    DD2
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                </li>
 
                             </ul >
                         </div >

@@ -9,25 +9,25 @@ export default function Toast({ flash }) {
     useEffect(() => {
         if (flash.success) {
             setShowSuccess(true);
-            setTimeout(() => setShowSuccess(false), 5000);
+            setTimeout(() => setShowSuccess(false), 3000);
         }
         if (flash.error) {
             setShowError(true);
-            setTimeout(() => setShowError(false), 5000);
+            setTimeout(() => setShowError(false), 3000);
         }
     }, [flash]);
 
     return (
         <>
 
-            <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 space-y-3">
+            <div className="fixed z-50 space-y-3 transform -translate-x-1/2 bottom-6 left-1/2">
                 {/* ✅ Success Toast */}
                 {showSuccess && (
                     <div
-                        className="flex items-center w-full max-w-xs p-4 text-gray-500 bg-slate-200 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800 transition-all duration-500 ease-out animate-slide-up"
+                        className="flex items-center w-full max-w-xs p-4 text-gray-500 transition-all duration-500 ease-out bg-white rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800 animate-slide-up"
                         role="alert"
                     >
-                        <div className="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-600 bg-green-300 rounded-lg dark:bg-green-800 dark:text-green-200">
+                        <div className="inline-flex items-center justify-center w-8 h-8 text-green-600 bg-green-300 rounded-lg shrink-0 dark:bg-green-800 dark:text-green-200">
                             <svg
                                 className="w-5 h-5"
                                 aria-hidden="true"
@@ -65,10 +65,10 @@ export default function Toast({ flash }) {
                 {/* ❌ Error Toast */}
                 {showError && (
                     <div
-                        className="flex items-center w-full max-w-xs p-4 text-gray-500  bg-slate-200 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800 transition-all duration-500 ease-out animate-slide-up"
+                        className="flex items-center w-full max-w-xs p-4 text-gray-500 transition-all duration-500 ease-out rounded-lg shadow-sm bg-slate-200 dark:text-gray-400 dark:bg-gray-800 animate-slide-up"
                         role="alert"
                     >
-                        <div className="inline-flex items-center justify-center shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+                        <div className="inline-flex items-center justify-center w-8 h-8 text-red-500 bg-red-100 rounded-lg shrink-0 dark:bg-red-800 dark:text-red-200">
                             <svg
                                 className="w-5 h-5"
                                 aria-hidden="true"
