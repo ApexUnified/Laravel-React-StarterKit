@@ -3,17 +3,19 @@ import Input from '@/Components/Input';
 import LinkButton from '@/Components/LinkButton';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import BreadCrumb from '@/partials/BreadCrumb'
+import BreadCrumb from '@/Components/BreadCrumb'
 import { Head, Link, useForm } from '@inertiajs/react'
 import React from 'react'
 
 export default function create() {
 
+
+    // Create Data Form Data
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
     });
 
-
+    // Create Data Form Request
     const submit = (e) => {
         e.preventDefault();
         post(route("category.store"));
@@ -68,6 +70,8 @@ export default function create() {
                                             Id={"name"}
                                             Name={"name"}
                                             Type={"text"}
+                                            CustomCss={"lg:w-1/2 sm:w-full"}
+
 
                                         />
 

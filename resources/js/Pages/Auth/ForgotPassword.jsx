@@ -5,23 +5,30 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 
 export default function ForgotPassword() {
+
+
+    // Forgot Password Form Data
     const { data, setData, post, processing, errors, wasSuccessful, reset } = useForm({
         email: '',
     });
 
-
+    // Verification Sent And Timer Managing States
     const [verificationSent, setVerificationSent] = useState(false);
     const [timer, setTimer] = useState(60);
 
+
+    // Refferences
     const timerRef = useRef(null);
-
-
     const email_input = useRef(null);
 
+
+    // Focusing Email Input Logic
     useEffect(() => {
         email_input.current.focus();
     }, []);
 
+
+    // Forgot Password Form Request
     const submit = (e) => {
         e.preventDefault();
 
@@ -39,6 +46,7 @@ export default function ForgotPassword() {
     };
 
 
+    // Start Timer After Mail is Sent
     useEffect(() => {
         if (wasSuccessful) {
             setVerificationSent(true);
@@ -50,6 +58,8 @@ export default function ForgotPassword() {
     }, [wasSuccessful]);
 
 
+
+    // Reset Timer After Timer Completes The Given Time And Enables The Again Mail Sent Button
     useEffect(() => {
         if (timer === 0) {
             clearInterval(timerRef.current);
@@ -121,7 +131,6 @@ export default function ForgotPassword() {
                                 <div className="space-y-5">
 
                                     <Input
-                                        CustomCss={"w-[250px]"}
                                         InputName={"Email"}
                                         Error={errors.email}
                                         Value={data.email}

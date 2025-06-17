@@ -7,15 +7,19 @@ import { useState } from 'react';
 
 export default function Login({ canResetPassword }) {
 
+
+    // Toggle Show Password State
     const [ShowPasswordToggle, setShowPasswordToggle] = useState(false);
 
+
+    // Login User Form Data
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
         remember: false,
     });
 
-
+    // Login User Form Request
     const submit = (e) => {
         e.preventDefault();
 
@@ -74,7 +78,6 @@ export default function Login({ canResetPassword }) {
                                 <div className="space-y-5">
 
                                     <Input
-                                        CustomCss={"w-[250px]"}
                                         InputName={"Email"}
                                         Error={errors.email}
                                         Value={data.email}
@@ -94,7 +97,6 @@ export default function Login({ canResetPassword }) {
 
 
                                     <Input
-                                        CustomCss={"w-[250px]"}
                                         InputName={"Password"}
                                         Error={errors.password}
                                         Value={data.password}

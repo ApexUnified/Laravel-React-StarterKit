@@ -5,14 +5,26 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 
 export default function VerifyEmail() {
+
+
+    // Verify Email Form Data
     const { post, processing, wasSuccessful } = useForm({});
+
+    // Logout Form Data
     const { post: logoutPost, processing: LogoutProcessing } = useForm({});
 
+
+    // Verification Sent And Timer Managing States
     const [verificationSent, setVerificationSent] = useState(false);
     const [timer, setTimer] = useState(60);
 
+
+    // Refference
     const timerRef = useRef(null);
 
+
+
+    // Verify Email Form Request
     const submit = (e) => {
         e.preventDefault();
         post(route('verification.send'));
@@ -20,7 +32,7 @@ export default function VerifyEmail() {
 
 
 
-
+    // Start Timer After Mail is Sent
     useEffect(() => {
         if (wasSuccessful) {
             setVerificationSent(true);
@@ -32,6 +44,8 @@ export default function VerifyEmail() {
     }, [wasSuccessful]);
 
 
+    // Reset Timer After Timer Completes The Given Time And Enables The Again Mail Sent Button
+
     useEffect(() => {
         if (timer === 0) {
             clearInterval(timerRef.current);
@@ -40,6 +54,8 @@ export default function VerifyEmail() {
         }
     }, [timer]);
 
+
+    // Logout Form Request
     const logout = () => {
         logoutPost(route('logout'));
     }

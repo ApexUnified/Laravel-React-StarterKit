@@ -2,42 +2,59 @@ import Card from '@/Components/Card';
 import LinkButton from '@/Components/LinkButton';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import BreadCrumb from '@/partials/BreadCrumb'
+import BreadCrumb from '@/Components/BreadCrumb'
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react'
 import debounce from 'lodash.debounce';
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 export default function index({ categories }) {
 
+
+    // Bulk Delete Form Data
     const { props } = usePage();
     const { data: BulkselectedIds, setData: setBulkSelectedIds, delete: BulkDelete, reset: resetBulkSelectedIds } = useForm({
         category_ids: [],
     });
 
 
+    // Single Delete Form Data
     const { data: SingleSelectedId, setData: setSingleSelectedId, delete: SingleDelete, reset: resetSingleSelectedId } = useForm({
         category_id: null,
     })
 
 
 
-    // Searching Logic
+    // For Managing Searching State
     const [search, setSearch] = useState(props.search ?? "");
+
+
+    // For Managing Dropdown States
     const [openDropdownId, setOpenDropdownId] = useState(null);
     const [BulkActionDropdown, setBulkActionDropdown] = useState(false);
     const [openBulkActionDropdownOptions, setOpenBulkActionDropdownOptions] = useState(false);
+
+
+
+    // For Managing Selected IDS State
     const [selectedIds, setSelectedIds] = useState([]);
+
+
+    // For Bulk Deletion  Model Opening  And Delete Processsing States
     const [DeleteBulkSelectedProcessing, setDeleteBulkSelectedProcessing] = useState(false);
     const [DeleteSelectedBuilkConfirmationModal, setDeleteSelectedBuilkConfirmationModal] = useState(false);
 
 
+    // For Single Deletion  Model Opening  And Delete Processsing States
     const [DeleteSingleConfirmationModal, setDeleteSingleConfirmationModal] = useState(false);
     const [DeleteSingleProcessing, setDeleteSingleProcessing] = useState(false);
 
+
+    // For Managing  References
     const dropdownRefs = useRef({});
     const searchInputRef = useRef(null);
 
 
+    // For Hndling Outside Clicks From Dropdowns And Managing Focus State For Search
     useEffect(() => {
         const handleClickOutside = (event) => {
             const isClickInsideAnyDropdown = Object.values(dropdownRefs.current).some(
@@ -60,6 +77,9 @@ export default function index({ categories }) {
         return () => document.removeEventListener('click', handleClickOutside);
     }, []);
 
+
+
+    // For Managing Selected Items
     useEffect(() => {
         if (selectedIds.length === 0) {
             setBulkActionDropdown(false);
@@ -75,20 +95,28 @@ export default function index({ categories }) {
     }, [selectedIds]);
 
 
+
+    // Handle Selection For All Items
     const handleSelectAll = () => {
         if (selectedIds.length === categories.data.length) setSelectedIds([]);
         else setSelectedIds(categories.data.map(item => item.id));
     }
+
+
+    // Handle Selection For Single Items
     const handleSelect = (id) => {
         if (selectedIds.includes(id)) setSelectedIds(selectedIds.filter(item => item !== id));
         else setSelectedIds([...selectedIds, id]);
     }
 
+
+    // Single Delete Form Request
     const SingleDeleteMethod = () => {
         setDeleteSingleProcessing(true);
         SingleDelete(route("category.destroy", SingleSelectedId["category_id"]), {
             onSuccess: () => {
                 setDeleteSingleProcessing(false);
+                setSelectedIds([]);
                 setDeleteSingleConfirmationModal(false);
                 resetSingleSelectedId("category_id");
             },
@@ -98,6 +126,8 @@ export default function index({ categories }) {
         })
     }
 
+
+    // Bulk Delete Form Request
     const deleteSelectedBulkMethod = () => {
         setDeleteBulkSelectedProcessing(true);
 
@@ -115,6 +145,8 @@ export default function index({ categories }) {
         });
     }
 
+
+    // For Managing Search
     const performSearch = useCallback(
         debounce((value) => {
             router.get(route("category.index", { search: value }, { preserveState: true, preserveScroll: true }));
@@ -123,6 +155,7 @@ export default function index({ categories }) {
     );
 
 
+    // For Handling Pagination
     const handlePagination = (url) => {
         if (url) {
             router.visit(url, {
@@ -388,20 +421,21 @@ export default function index({ categories }) {
                                     <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-800">
                                         <div className="flex items-center justify-between">
                                             {/* Previous Button */}
-                                            <button
-                                                disabled={!categories.links[0].url}
-                                                onClick={() => handlePagination(categories.links[0].url)}
-                                                className={`text-theme-sm shadow-theme-xs flex items-center gap-2 rounded-lg border px-2 py-2 font-medium sm:px-3.5
-                                                ${!categories.links[0].url
-                                                        ? 'bg-gray-200 text-gray-400 dark:bg-gray-700 dark:text-gray-500 cursor-not-allowed'
-                                                        : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200'
-                                                    }`}
-                                            >
-                                                <svg className="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                    <path fillRule="evenodd" clipRule="evenodd" d="M2.58301 9.99868C2.58272 10.1909 2.65588 10.3833 2.80249 10.53L7.79915 15.5301C8.09194 15.8231 8.56682 15.8233 8.85981 15.5305C9.15281 15.2377 9.15297 14.7629 8.86018 14.4699L5.14009 10.7472L16.6675 10.7472C17.0817 10.7472 17.4175 10.4114 17.4175 9.99715C17.4175 9.58294 17.0817 9.24715 16.6675 9.24715L5.14554 9.24715L8.86017 5.53016C9.15297 5.23717 9.15282 4.7623 8.85983 4.4695C8.56684 4.1767 8.09197 4.17685 7.79917 4.46984L2.84167 9.43049C2.68321 9.568 2.58301 9.77087 2.58301 9.99715Z" />
-                                                </svg>
-                                                <span className="hidden sm:inline"> Previous </span>
-                                            </button>
+
+                                            <PrimaryButton
+                                                Text={
+                                                    <>
+                                                        <svg className="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                            <path fillRule="evenodd" clipRule="evenodd" d="M2.58301 9.99868C2.58272 10.1909 2.65588 10.3833 2.80249 10.53L7.79915 15.5301C8.09194 15.8231 8.56682 15.8233 8.85981 15.5305C9.15281 15.2377 9.15297 14.7629 8.86018 14.4699L5.14009 10.7472L16.6675 10.7472C17.0817 10.7472 17.4175 10.4114 17.4175 9.99715C17.4175 9.58294 17.0817 9.24715 16.6675 9.24715L5.14554 9.24715L8.86017 5.53016C9.15297 5.23717 9.15282 4.7623 8.85983 4.4695C8.56684 4.1767 8.09197 4.17685 7.79917 4.46984L2.84167 9.43049C2.68321 9.568 2.58301 9.77087 2.58301 9.99715Z" />
+                                                        </svg>
+                                                        <span className="hidden sm:inline  mx-2"> Previous </span>
+                                                    </>
+                                                }
+                                                Disabled={!categories.links[0].url}
+                                                Action={() => handlePagination(categories.links[0].url)}
+                                                CustomClass={"w-[140px] h-[40px]"}
+                                                Type={"button"}
+                                            />
 
                                             {/* Page Numbers */}
                                             <ul className="hidden items-center gap-0.5 sm:flex">
@@ -412,31 +446,36 @@ export default function index({ categories }) {
                                                             disabled={(!link.url || link.active)}
                                                             className={`text-theme-sm flex h-10 w-10 items-center justify-center rounded-lg font-medium
                                                 ${link.active
-                                                                    ? "bg-blue-500/[0.08] text-blue-500"
+                                                                    ? "bg-blue-800/[0.08] text-blue-500"
                                                                     : "text-gray-700 hover:bg-blue-500/[0.08] hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500"
                                                                 }`}
                                                         >
                                                             {link.label}
                                                         </button>
+
+
                                                     </li>
                                                 ))}
                                             </ul>
 
+
                                             {/* Next Button */}
-                                            <button
-                                                disabled={!categories.links[categories.links.length - 1].url}
-                                                onClick={() => handlePagination(categories.links[categories.links.length - 1].url)}
-                                                className={`text-theme-sm shadow-theme-xs flex items-center gap-2 rounded-lg border px-2 py-2 font-medium sm:px-3.5
-                    ${!categories.links[categories.links.length - 1].url
-                                                        ? 'bg-gray-200 text-gray-400 dark:bg-gray-700 dark:text-gray-500 cursor-not-allowed'
-                                                        : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200'
-                                                    }`}
-                                            >
-                                                <span className="hidden sm:inline"> Next </span>
-                                                <svg className="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                    <path fillRule="evenodd" clipRule="evenodd" d="M17.4175 9.9986C17.4178 10.1909 17.3446 10.3832 17.198 10.53L12.2013 15.5301C11.9085 15.8231 11.4337 15.8233 11.1407 15.5305C10.8477 15.2377 10.8475 14.7629 11.1403 14.4699L14.8604 10.7472L3.33301 10.7472C2.91879 10.7472 2.58301 10.4114 2.58301 9.99715C2.58301 9.58294 2.91879 9.24715 3.33301 9.24715L14.8549 9.24715L11.1403 5.53016C10.8475 5.23717 10.8477 4.7623 11.1407 4.4695C11.4336 4.1767 11.9085 4.17685 12.2013 4.46984L17.1588 9.43049C17.3173 9.568 17.4175 9.77087 17.4175 9.99715Z" />
-                                                </svg>
-                                            </button>
+
+                                            <PrimaryButton
+                                                Text={
+                                                    <>
+                                                        <span className="hidden sm:inline"> Next </span>
+                                                        <svg className="fill-current mx-2" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                            <path fillRule="evenodd" clipRule="evenodd" d="M17.4175 9.9986C17.4178 10.1909 17.3446 10.3832 17.198 10.53L12.2013 15.5301C11.9085 15.8231 11.4337 15.8233 11.1407 15.5305C10.8477 15.2377 10.8475 14.7629 11.1403 14.4699L14.8604 10.7472L3.33301 10.7472C2.91879 10.7472 2.58301 10.4114 2.58301 9.99715C2.58301 9.58294 2.91879 9.24715 3.33301 9.24715L14.8549 9.24715L11.1403 5.53016C10.8475 5.23717 10.8477 4.7623 11.1407 4.4695C11.4336 4.1767 11.9085 4.17685 12.2013 4.46984L17.1588 9.43049C17.3173 9.568 17.4175 9.77087 17.4175 9.99715Z" />
+                                                        </svg>
+                                                    </>
+                                                }
+                                                Disabled={!categories.links[categories.links.length - 1].url}
+                                                Action={() => handlePagination(categories.links[categories.links.length - 1].url)}
+                                                CustomClass={"w-[140px] h-[40px] mx-2"}
+                                                Type={"button"}
+                                            />
+
                                         </div>
                                     </div>
                                 )}

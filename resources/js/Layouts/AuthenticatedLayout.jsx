@@ -1,49 +1,56 @@
 import Header from '@/partials/Header';
-import Overlay from '@/partials/Overlay';
-import Preloader from '@/partials/Preloader';
+import Overlay from '@/Components/Overlay';
+import Preloader from '@/Components/Preloader';
 import Sidebar from '@/partials/Sidebar';
 import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-import flatpickr from "flatpickr";
-import ApplicationLogoIcon from 'asset/assets/images/logo/Favicon.png';
-import ApplicationLogoLight from 'asset/assets/images/logo/SystemLogoLight.png';
-import ApplicationLogoDark from 'asset/assets/images/logo/SystemLogo_ForGuest.png';
 import Toast from '@/Components/Toast';
 export default function AuthenticatedLayout({ children }) {
 
 
+    // Global General Setting Prop
+    const { generalSetting } = usePage().props;
+
+    // Global Asset Prop To Get asset() path it uses Laravel Default asset() Method
+    const { asset } = usePage().props;
+
+
+    // Application Logo Sate With Default Images
+    const [ApplicationLogoLight, setApplicationLogoLight] = useState(asset + "assets/images/logo/ApplicationLogoLight.png");
+    const [ApplicationLogoDark, setApplicationLogoDark] = useState(asset + "assets/images/logo/ApplicationLogoDark.png");
+
+
+    // For Updating Application Logo
     useEffect(() => {
-        // Init Flatpicker
-        flatpickr(".datepicker", {
-            mode: "range",
-            static: true,
-            monthSelectorType: "static",
-            dateFormat: "M j, Y",
-            defaultDate: [new Date().setDate(new Date().getDate() - 6), new Date()],
-            prevArrow:
-                '<svg class="stroke-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.25 6L9 12.25L15.25 18.5" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-            nextArrow:
-                '<svg class="stroke-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.75 19L15 12.75L8.75 6.5" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-            onReady: (selectedDates, dateStr, instance) => {
-                // eslint-disable-next-line no-param-reassign
-                instance.element.value = dateStr.replace("to", "-");
-                const customClass = instance.element.getAttribute("data-class");
-                instance.calendarContainer.classList.add(customClass);
-            },
-            onChange: (selectedDates, dateStr, instance) => {
-                // eslint-disable-next-line no-param-reassign
-                instance.element.value = dateStr.replace("to", "-");
-            },
-        });
+
+        // Assigning Application logos
+        if (generalSetting?.app_main_logo_light) {
+            setApplicationLogoLight(asset + "assets/images/Logo/" + generalSetting?.app_main_logo_light);
+        }
+
+        if (generalSetting?.app_main_logo_dark) {
+            setApplicationLogoDark(asset + "assets/images/Logo/" + generalSetting?.app_main_logo_dark);
+        }
 
 
 
     }, []);
 
+
+    // Global Auth user Prop
     const user = usePage().props.auth.user;
+
+    // Global Flash Messages Prop Can be Assessble Via (flash.success || flash.error)
     const { flash } = usePage().props;
+
+    // Managing Loader State
     const [loaded, setLoaded] = useState(true);
-    const [sidebarToggle, setSidebarToggle] = useState(true);
+
+
+    // Managing SidebarToggle State
+    const [sidebarToggle, setSidebarToggle] = useState(false);
+
+    // Managing Dark Mode State
     const [darkMode, setDarkMode] = useState(false);
 
 
@@ -55,7 +62,7 @@ export default function AuthenticatedLayout({ children }) {
 
 
 
-                <Sidebar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} ApplicationLogoIcon={ApplicationLogoIcon} ApplicationLogoLight={ApplicationLogoLight} ApplicationLogoDark={ApplicationLogoDark} />
+                <Sidebar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} ApplicationLogoLight={ApplicationLogoLight} ApplicationLogoDark={ApplicationLogoDark} />
 
 
 
@@ -66,7 +73,7 @@ export default function AuthenticatedLayout({ children }) {
 
 
 
-                    <Header sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} darkMode={darkMode} setDarkMode={setDarkMode} ApplicationLogoIcon={ApplicationLogoIcon} ApplicationLogoLight={ApplicationLogoLight} ApplicationLogoDark={ApplicationLogoDark} user={user} />
+                    <Header sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} darkMode={darkMode} setDarkMode={setDarkMode} ApplicationLogoLight={ApplicationLogoLight} ApplicationLogoDark={ApplicationLogoDark} user={user} />
 
 
 

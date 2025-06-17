@@ -169,4 +169,22 @@
     .sidebar:hover .menu-dropdown {
         display: flex;
     }
+
+    /* In your global CSS or Tailwind config layer */
+    .dark .filepond--panel-root {
+        background-color: #111827 !important; /* Tailwind gray-800 */
+        color: #d1d5db !important; /* Tailwind gray-300 */
+    }
+
+    .dark .filepond--drop-label {
+        color: #d1d5db !important;
+    }
+
+    .dark .filepond--label-action {
+        color: #60a5fa !important; /* Tailwind blue-400 */
+    }
+
+    .dark .filepond--file {
+        background-color: #374151 !important; /* Tailwind gray-700 */
+    }
 }

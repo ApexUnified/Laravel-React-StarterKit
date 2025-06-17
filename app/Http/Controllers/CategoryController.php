@@ -14,6 +14,8 @@ class CategoryController extends Controller
     {
         $categories = Category::query();
 
+        $request->validate(['name' => 'nullable|string']);
+
         if ($request->filled('search')) {
             $categories->where('name', 'like', '%'.$request->search.'%');
         }

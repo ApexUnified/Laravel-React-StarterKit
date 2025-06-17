@@ -7,10 +7,12 @@ import { useState } from 'react';
 
 export default function Register() {
 
-
+    // Toggle Show Password States
     const [showPasswordToggle, setshowPasswordToggle] = useState(false);
     const [showPasswordConfirmationToggle, setShowPasswordConfirmationToggle] = useState(false);
 
+
+    // Register User Form Data
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -18,6 +20,8 @@ export default function Register() {
         password_confirmation: '',
     });
 
+
+    // Register User Form Request
     const submit = (e) => {
         e.preventDefault();
 
@@ -77,11 +81,7 @@ export default function Register() {
                                 <div className="space-y-5">
 
 
-
-
-
                                     <Input
-                                        CustomCss={"w-[250px]"}
                                         InputName={"Name"}
                                         Error={errors.name}
                                         Value={data.name}
@@ -99,7 +99,6 @@ export default function Register() {
 
 
                                     <Input
-                                        CustomCss={"w-[250px]"}
                                         InputName={"Email"}
                                         Error={errors.email}
                                         Value={data.email}
@@ -117,7 +116,6 @@ export default function Register() {
 
 
                                     <Input
-                                        CustomCss={"w-[250px]"}
                                         InputName={"Password"}
                                         Error={errors.password}
                                         Value={data.password}
@@ -138,7 +136,6 @@ export default function Register() {
 
 
                                     <Input
-                                        CustomCss={"w-[250px]"}
                                         InputName={"Confirm Password"}
                                         Error={errors.password_confirmation}
                                         Value={data.password_confirmation}

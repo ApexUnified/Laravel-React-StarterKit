@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\GeneralSetting;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -41,6 +42,9 @@ class HandleInertiaRequests extends Middleware
                     'error' => session('error'),
                 ];
             },
+
+            'generalSetting' => GeneralSetting::first(),
+            'asset' => asset(''),
         ];
     }
 }

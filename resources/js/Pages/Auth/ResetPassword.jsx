@@ -7,10 +7,12 @@ import { useState } from 'react';
 
 export default function ResetPassword({ token, email }) {
 
-
+    // Show Password States
     const [showPasswordToggle, setshowPasswordToggle] = useState(false);
     const [showPasswordConfirmationToggle, setShowPasswordConfirmationToggle] = useState(false);
 
+
+    // Reset Password Form Data
     const { data, setData, post, processing, errors, reset } = useForm({
         token: token,
         email: email,
@@ -18,6 +20,8 @@ export default function ResetPassword({ token, email }) {
         password_confirmation: '',
     });
 
+
+    // Reset Password Form Request
     const submit = (e) => {
         e.preventDefault();
 
@@ -76,7 +80,6 @@ export default function ResetPassword({ token, email }) {
                                 <div className="space-y-5">
 
                                     <Input
-                                        CustomCss={"w-[250px]"}
                                         InputName={"Email"}
                                         Error={errors.email}
                                         Value={data.email}
@@ -93,7 +96,6 @@ export default function ResetPassword({ token, email }) {
                                     />
 
                                     <Input
-                                        CustomCss={"w-[250px]"}
                                         InputName={"Password"}
                                         Error={errors.password}
                                         Value={data.password}
@@ -114,7 +116,6 @@ export default function ResetPassword({ token, email }) {
 
 
                                     <Input
-                                        CustomCss={"w-[250px]"}
                                         InputName={"Confirm Password"}
                                         Error={errors.password_confirmation}
                                         Value={data.password_confirmation}

@@ -3,17 +3,19 @@ import Input from '@/Components/Input';
 import LinkButton from '@/Components/LinkButton';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import BreadCrumb from '@/partials/BreadCrumb';
+import BreadCrumb from '@/Components/BreadCrumb';
 import { Head, useForm } from '@inertiajs/react';
 import React from 'react'
 
 export default function edit({ category }) {
 
+
+    // Edit Data Form Data
     const { data, setData, put, processing, errors, reset } = useForm({
         name: category.name || '',
     });
 
-
+    // Edit Data Form Request
     const submit = (e) => {
         e.preventDefault();
         put(route("category.update", category.id));
@@ -64,6 +66,7 @@ export default function edit({ category }) {
                                         Id={"name"}
                                         Name={"name"}
                                         Type={"text"}
+                                        CustomCss={"lg:w-1/2 sm:w-full"}
 
                                     />
 
@@ -74,7 +77,7 @@ export default function edit({ category }) {
                                     Text={"Update Category"}
                                     Type={"submit"}
                                     CustomClass={"w-[200px] mx-5 mt-10"}
-                                    Disabled={(processing || data.name === "")}
+                                    Disabled={(processing || data.name === "" || data.name === category.name)}
                                     Spinner={processing}
                                     Icon={
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">

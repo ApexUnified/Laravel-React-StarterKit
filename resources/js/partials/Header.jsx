@@ -9,17 +9,33 @@ import { Link, useForm } from '@inertiajs/react';
 import Spinner from '@/Components/Spinner';
 
 
-export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setDarkMode, ApplicationLogoIcon, ApplicationLogoLight, ApplicationLogoDark, user }) {
+export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setDarkMode, ApplicationLogoLight, ApplicationLogoDark, user }) {
 
+    // Logout Form Data
     const { post: logout, processing: logoutProcessing } = useForm({});
+
+
+    // Toggle Header Menu State
     const [menuToggle, setMenuToggle] = useState(false);
+
+    // Show Notificaiton Dropdown State
     const [NotificationDropdown, setNotificationDropdown] = useState(false);
+
+    // Show Profile Dropdown State
     const [profileDropdown, setProfileDropdown] = useState(false);
+
+    // Show Notifiction Badge State
     const [notifying, setNotifying] = useState(true);
+
+
+    // For Managing  References
     const dropdownRef = useRef(null);
     const profileDropdownRef = useRef(null);
     const searchInputRef = useRef(null);
 
+
+
+    // Toggle Mode Dark + Light
     useEffect(() => {
         const storedDarkMode = localStorage.getItem('darkMode');
         if (storedDarkMode) {
@@ -34,6 +50,7 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
     }, [darkMode]);
 
 
+    // Handle Click Outside From  Header Dropdowns
     useEffect(() => {
         function handleClickOutside(event) {
 
@@ -52,7 +69,7 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
     }, []);
 
 
-
+    // Handle Key Press For opening Search And Focusing it
     useEffect(() => {
         const handleCtrlK = (event) => {
             if ((event.metaKey || event.ctrlKey) && event.key === "k") {
@@ -588,8 +605,8 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                             </Link>
                                         </li>
                                         <li>
-                                            <a
-                                                href="#"
+                                            <Link
+                                                href={route("settings.general.setting")}
                                                 className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
                                             >
                                                 <svg
@@ -608,7 +625,7 @@ export default function Header({ sidebarToggle, setSidebarToggle, darkMode, setD
                                                     />
                                                 </svg>
                                                 Account settings
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
                                             <a

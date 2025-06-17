@@ -2,14 +2,14 @@ import Card from '@/Components/Card'
 import Input from '@/Components/Input';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import BreadCrumb from '@/partials/BreadCrumb'
+import BreadCrumb from '@/Components/BreadCrumb'
 import { Head, useForm, usePage } from '@inertiajs/react'
 import userProfile from 'asset/assets/images/user/user-02.jpg';
 import React, { useState } from 'react'
 
 export default function index({ user }) {
 
-    // Update Profile Logic
+    // Update Profile Form Data
     const { data: updateProfileData, setData: setUpdateProfileData, put: updateProfile, processing: UpdateProfileProcessing, errors: UpdateProfileErrors }
         = useForm({
             name: user.name || "",
@@ -17,7 +17,7 @@ export default function index({ user }) {
         });
 
 
-    // update Password Logic
+    // update Password Form Data
     const { data: updatePasswordData, setData: setUpdatePasswordData, put: updatePassword, processing: UpdatePasswordProcessing, errors: UpdatePasswordErrors, reset: updatePasswordResetFields }
         = useForm({
             current_password: "",
@@ -25,7 +25,7 @@ export default function index({ user }) {
             password_confirmation: "",
         });
 
-    // Delete Account Logic
+    // Delete Account Form Dat
     const { data: deleteAccountPasswordConmfirmation, setData: setDeleteAccountPasswordConmfirmation, delete: deleteAccount, processing: DeleteAccountProcessing, errors: DeleteAccountErrors } = useForm({
         current_password: "",
     });
@@ -43,6 +43,9 @@ export default function index({ user }) {
     // Delete Account Password Confirmation State
     const [DeleteAccountEnable, setDeleteAccountEnable] = useState(false);
 
+
+
+    // Update Profile Data Form Request
     const updateProfileMethod = (e) => {
         e.preventDefault();
         updateProfile(route('profile.update'), {
@@ -52,6 +55,8 @@ export default function index({ user }) {
         });
     }
 
+
+    // Update Password Data Form Request
     const updatePasswordMethod = (e) => {
         e.preventDefault();
         updatePassword(route('profile.password.update'), {
@@ -60,6 +65,8 @@ export default function index({ user }) {
     }
 
 
+
+    // Delete Account Form Request
     const DeleteAccountMethod = (e) => {
         e.preventDefault();
         deleteAccount(route("profile.account.destroy"), {

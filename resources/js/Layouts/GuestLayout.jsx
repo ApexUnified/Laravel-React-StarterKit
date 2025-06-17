@@ -1,17 +1,46 @@
-import ApplicationLogo from 'asset/assets/images/logo/SystemLogo_ForGuest.png';
-import CommonGridShape from '@/partials/common-grid-shape';
-import { Link, usePage } from '@inertiajs/react';
+import CommonGridShape from '@/Components/common-grid-shape';
+import { usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-import Preloader from '@/partials/Preloader';
+import Preloader from '@/Components/Preloader';
 import Toast from '@/Components/Toast';
 
 export default function GuestLayout({ children }) {
 
+
+
+    // Global General Setting Prop
+    const { generalSetting } = usePage().props;
+
+    // Global Asset Prop To Get asset() path it uses Laravel Default asset() Method
+    const { asset } = usePage().props;
+
+    // Global Flash Messages Prop Can be Assessble Via (flash.success || flash.error)
     const { flash } = usePage().props;
+
+
+    // Managing Dark Mode State
     const [darkMode, setDarkMode] = useState(false);
+
+
+    // Managing Loader State
     const [loaded, setLoaded] = useState(true);
 
+    // Application Logo Sate With Default Images
+    const [ApplicationLogo, setApplicationLogo] = useState(asset + "assets/images/logo/ApplicationLogoDark.png");
 
+
+    // For Updating Application Logo
+    useEffect(() => {
+
+        // Assigning Application logos
+        if (generalSetting?.app_main_logo_light) {
+            setApplicationLogo(asset + "assets/images/Logo/" + generalSetting?.app_main_logo_dark);
+        }
+
+    }, []);
+
+
+    // Checking DarkMode Sesion And Toggle Mode
     useEffect(() => {
         const storedDarkMode = localStorage.getItem('darkMode');
         if (storedDarkMode) {
@@ -24,6 +53,9 @@ export default function GuestLayout({ children }) {
         }
 
     }, [darkMode]);
+
+
+
 
     return (
         <>
@@ -53,7 +85,7 @@ export default function GuestLayout({ children }) {
 
                             <CommonGridShape />
                             <div className="flex flex-col items-center max-w-xs">
-                                <a href="index.html" className="block mb-4 rounded-2xl dark:none">
+                                <a href={route("home")} className="block mb-4 rounded-2xl dark:none">
                                     <img src={ApplicationLogo} alt="Logo" />
                                 </a>
 
