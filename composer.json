@@ -50,7 +50,7 @@
         "post-create-project-cmd": [
             "@php -r \"is_dir('database') || mkdir('database', 0755, true);\"",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-             "@php artisan key:generate --ansi",
+            "@php artisan key:generate --ansi",
             "@php artisan migrate --graceful --ansi"
         ],
         "dev": [
