@@ -9,6 +9,7 @@ A modern, developer-friendly Laravel Starter Kit built with **Laravel**, **React
 - ✅ **Laravel 12+**
 - ⚛️ **React** with **Inertia.js**
 - 🎨 **Tailwind CSS**
+- 🪄 **Rich Components**
 - ☁️ **FilePond** for advanced file uploading
 - 🌑 Light & Dark Theme Support
 - 🔁 Redis Support for Caching & Queues
@@ -25,6 +26,7 @@ A modern, developer-friendly Laravel Starter Kit built with **Laravel**, **React
     - When a verification email is sent, a timer is started.
     - The user cannot request another verification email until the timer expires.
     - This prevents **spamming** and **unnecessary mail traffic**.
+    - Gracefully Error Handling.
 
 ---
 
@@ -54,13 +56,17 @@ A modern, developer-friendly Laravel Starter Kit built with **Laravel**, **React
 
 ## 📦 Installation Guide
 
-### 🔄 One-Line Auto Setup (for dev/staging)
-
-Use this if you want to Manually spin up the project.
+Use this if you want to Quick Start The Project.
 
 ```bash
-git clone https://github.com/your-username/laravel-react-starterkit.git your-app-name
-cd your-app-name
+laravel new your-app --using=""
+```
+
+Use this if you want to Manually Setup the project.
+
+```bash
+git https://github.com/ApexUnified/Laravel-React-StarterKit.git my-awesome-app
+cd my-awesome-app
 
 # Run one-time script to:
 # - composer install
