@@ -71,8 +71,8 @@ cd my-awesome-app
 
 # Run one-time script to:
 # - cp .env.example .env
-# - php artisan key:generate
 # - composer install
+# - php artisan key:generate
 # - php artisan migrate
 # - npm install
 # - npm run dev
