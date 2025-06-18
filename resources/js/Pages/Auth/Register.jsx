@@ -106,7 +106,7 @@ export default function Register() {
                                             (e) => setData("email", e.target.value)
                                         }
 
-                                        Placeholder={"info@gmial.com"}
+                                        Placeholder={"info@gmail.com"}
                                         Id={"email"}
                                         Name={"email"}
                                         Type={"email"}

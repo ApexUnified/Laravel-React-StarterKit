@@ -24,14 +24,13 @@ class SettingController extends Controller
 
     public function updateGeneralSetting(Request $request)
     {
-
         $validated_req = $request->validate([
             'app_name' => 'required|min:4|string|max:100',
             'contact_email' => 'required|email',
             'contact_number' => 'required|numeric',
-            'app_main_logo_dark' => 'nullable|mimes:png',
-            'app_main_logo_light' => 'nullable|mimes:png',
-            'app_favicon' => 'nullable|mimes:jpg,jpeg,png',
+            'app_main_logo_dark' => 'nullable|mimes:png|max:2048',
+            'app_main_logo_light' => 'nullable|mimes:png|max:2048',
+            'app_favicon' => 'nullable|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $generalSetting = GeneralSetting::first();
@@ -56,7 +55,7 @@ class SettingController extends Controller
             $favicon->move($directory, $new_favicon_name);
 
         } else {
-            $validated_req['app_favicon'] = $generalSetting->app_favicon;
+            $validated_req['app_favicon'] = $generalSetting?->app_favicon ?? null;
         }
 
         if ($request->hasFile('app_main_logo_dark')) {
@@ -73,7 +72,7 @@ class SettingController extends Controller
             $app_main_logo_dark->move($directory, $new_app_main_logo_dark_name);
 
         } else {
-            $validated_req['app_main_logo_dark'] = $generalSetting->app_main_logo_dark;
+            $validated_req['app_main_logo_dark'] = $generalSetting?->app_main_logo_dark ?? null;
         }
 
         if ($request->hasFile('app_main_logo_light')) {
@@ -90,7 +89,8 @@ class SettingController extends Controller
             $app_main_logo_light->move($directory, $new_app_main_logo_light_name);
 
         } else {
-            $validated_req['app_main_logo_light'] = $generalSetting->app_main_logo_light;
+            $validated_req['app_main_logo_light'] = $generalSetting?->app_main_logo_light ?? null;
+
         }
 
         if (! empty($generalSetting)) {

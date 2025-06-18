@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
@@ -30,6 +31,15 @@ class PasswordResetLinkController extends Controller
         $request->validate([
             'email' => 'required|email',
         ]);
+
+        if (empty(Cache::get('smtp_config'))) {
+            if (app()->environment('local')) {
+                return back()->with('info', 'Please Configure SMTP Setting First');
+            }
+            if (app()->environment('production')) {
+                return back()->with('error', 'Failed To Send Reset Password Mail Please Try Again Later');
+            }
+        }
 
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we

@@ -128,15 +128,15 @@ class CategoryController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'category_ids' => 'required|array|min:1',
-            'category_ids.*' => 'exists:categories,id',
+            'ids' => 'required|array|min:1',
+            'ids.*' => 'exists:categories,id',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->with('error', $validator->errors()->first());
         }
 
-        $ids = $request->category_ids;
+        $ids = $request->ids;
 
         Category::whereIn('id', $ids)->delete();
 

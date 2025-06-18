@@ -65,10 +65,6 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         if ($user->delete()) {
-            Auth::logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-
             return redirect()->route('login')->with('success', 'Account Permanently deleted successfully');
         } else {
             return redirect()->route('profile.index')->withErrors(request()->all())->with('error', 'Failed to delete account');

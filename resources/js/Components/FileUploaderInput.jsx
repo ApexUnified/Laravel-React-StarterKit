@@ -8,13 +8,15 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 import { usePage } from '@inertiajs/react';
 
 
 registerPlugin(
     FilePondPluginImagePreview,
     FilePondPluginFileValidateType,
-    FilePondPluginImageExifOrientation
+    FilePondPluginImageExifOrientation,
+    FilePondPluginFileValidateSize
 );
 export default function FileUploaderInput({ Multiple = false, InputName, CustomCss, Id, Required = false, Label, Error, onUpdate, DefaultFile }) {
 
@@ -47,6 +49,7 @@ export default function FileUploaderInput({ Multiple = false, InputName, CustomC
                         allowMultiple={Multiple}
                         credits={false}
                         acceptedFileTypes={['image/*']}
+
                         labelIdle={Label ?? "Drag & Drop Your Files or <strong>Click</strong>"}
                         onupdatefiles={(fileItems) => {
                             const item = fileItems[0];
@@ -60,6 +63,7 @@ export default function FileUploaderInput({ Multiple = false, InputName, CustomC
                         allowDrop={true}
                         dropOnElement={true}
                         className="filepond--root"
+                        maxFileSize='2MB'
                     />
 
 

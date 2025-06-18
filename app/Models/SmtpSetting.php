@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class SmtpSetting extends Model
 {
@@ -15,4 +16,15 @@ class SmtpSetting extends Model
         'smtp_password',
         'smtp_mail_from_address',
     ];
+
+    protected static function booted()
+    {
+        static::updated(function () {
+            Cache::forget('smtp_config');
+        });
+
+        static::created(function () {
+            Cache::forget('smtp_config');
+        });
+    }
 }

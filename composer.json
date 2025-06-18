@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel-inerita/tailwind-starterkit",
+    "name": "apexunified/react-starterkit",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
     "keywords": ["laravel", "framework"],
@@ -14,7 +14,6 @@
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.15",
         "fakerphp/faker": "^1.23",
         "laravel/breeze": "^2.3",
         "laravel/pail": "^1.2.2",

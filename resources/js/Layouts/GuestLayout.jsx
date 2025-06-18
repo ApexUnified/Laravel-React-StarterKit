@@ -26,7 +26,7 @@ export default function GuestLayout({ children }) {
     const [loaded, setLoaded] = useState(true);
 
     // Application Logo Sate With Default Images
-    const [ApplicationLogo, setApplicationLogo] = useState(asset + "assets/images/logo/ApplicationLogoDark.png");
+    const [ApplicationLogo, setApplicationLogo] = useState(asset + "assets/images/Logo/ApplicationLogoDark.png");
 
 
     // For Updating Application Logo

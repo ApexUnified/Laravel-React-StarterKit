@@ -1,14 +1,14 @@
 import Input from '@/Components/Input';
 import PrimaryButton from '@/Components/PrimaryButton';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 
 export default function ForgotPassword() {
 
-
+    const { flash } = usePage().props;
     // Forgot Password Form Data
-    const { data, setData, post, processing, errors, wasSuccessful, reset } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
     });
 
@@ -48,14 +48,14 @@ export default function ForgotPassword() {
 
     // Start Timer After Mail is Sent
     useEffect(() => {
-        if (wasSuccessful) {
+        if (!!flash.success) {
             setVerificationSent(true);
 
             timerRef.current = setInterval(() => {
                 setTimer((t) => t - 1);
             }, 1000);
         }
-    }, [wasSuccessful]);
+    }, [!!flash.success]);
 
 
 
@@ -137,7 +137,7 @@ export default function ForgotPassword() {
                                         Action={
                                             (e) => setData("email", e.target.value)
                                         }
-                                        Placeholder={"info@gmial.com"}
+                                        Placeholder={"info@gmail.com"}
                                         Id={"email"}
                                         Name={"email"}
                                         Type={"email"}

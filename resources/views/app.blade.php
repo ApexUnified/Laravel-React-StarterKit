@@ -1,3 +1,7 @@
+@php
+    $general_setting = Illuminate\Support\Facades\Cache::get('general_config');
+    $favicon = $general_setting?->app_favicon ?? 'Favicon.png';
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -6,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo/Favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/images/Logo/' . $favicon) }}" type="image/x-icon">
 
     <!-- Scripts -->
     @routes

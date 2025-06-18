@@ -6,7 +6,6 @@ use App\Http\Controllers\SettingController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Pest\Plugins\Profile;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -25,7 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Category Routes
     Route::resource('/category', CategoryController::class)->except(['show']);
-    Route::delete('/category-delete-by-selectetion', [CategoryController::class, 'deleteBySelection'])->name('category.deleteBySelectetion');
+    Route::delete('/category-delete-by-selectetion', [CategoryController::class, 'deleteBySelection'])->name('category.deletebyselection');
 
     // Profile Routes
     Route::controller(ProfileController::class)->group(function () {

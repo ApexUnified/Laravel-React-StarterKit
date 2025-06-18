@@ -1,14 +1,18 @@
 
 import PrimaryButton from '@/Components/PrimaryButton';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 
 export default function VerifyEmail() {
 
 
+    const { flash } = usePage().props;
+
     // Verify Email Form Data
-    const { post, processing, wasSuccessful } = useForm({});
+    const { post, processing, errors } = useForm({});
+
+
 
     // Logout Form Data
     const { post: logoutPost, processing: LogoutProcessing } = useForm({});
@@ -34,14 +38,14 @@ export default function VerifyEmail() {
 
     // Start Timer After Mail is Sent
     useEffect(() => {
-        if (wasSuccessful) {
+        if (!!flash.success) {
             setVerificationSent(true);
 
             timerRef.current = setInterval(() => {
                 setTimer((t) => t - 1);
             }, 1000);
         }
-    }, [wasSuccessful]);
+    }, [!!flash.success]);
 
 
     // Reset Timer After Timer Completes The Given Time And Enables The Again Mail Sent Button

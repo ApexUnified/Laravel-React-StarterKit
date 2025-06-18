@@ -87,7 +87,7 @@ export default function ResetPassword({ token, email }) {
                                             (e) => setData("email", e.target.value)
                                         }
 
-                                        Placeholder={"info@gmial.com"}
+                                        Placeholder={"info@gmail.com"}
                                         Id={"email"}
                                         Name={"email"}
                                         Type={"email"}

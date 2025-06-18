@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class EmailVerificationNotificationController extends Controller
 {
@@ -13,6 +14,20 @@ class EmailVerificationNotificationController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
+        if (empty(Cache::get('smtp_config'))) {
+
+            if (app()->environment('local')) {
+                return back()
+                    ->with('info', 'Please Configure SMTP Setting First And Remove The MustVerifyEmail Interface From User Model');
+            }
+
+            if (app()->environment('production')) {
+                return back()
+                    ->with('error', 'Error Occured While Sending Verification Mail Please Try Again Later');
+            }
+        }
+
         if ($request->user()->hasVerifiedEmail()) {
             return redirect()->intended(route('dashboard', absolute: false));
         }

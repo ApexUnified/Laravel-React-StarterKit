@@ -85,7 +85,7 @@ export default function Login({ canResetPassword }) {
                                             (e) => setData("email", e.target.value)
                                         }
 
-                                        Placeholder={"info@gmial.com"}
+                                        Placeholder={"info@gmail.com"}
                                         Id={"email"}
                                         Name={"email"}
                                         Type={"email"}

@@ -1,7 +1,12 @@
 import { Link } from '@inertiajs/react';
 import React, { useState } from 'react';
 
-export default function Sidebar({ sidebarToggle, setSidebarToggle, ApplicationLogoLight, ApplicationLogoDark }) {
+export default function Sidebar({
+    sidebarToggle,
+    setSidebarToggle,
+    ApplicationLogoLight,
+    ApplicationLogoDark
+}) {
 
     // For Managing Sidebar Navlinks Selection State
     const [selected, setSelected] = useState(null);

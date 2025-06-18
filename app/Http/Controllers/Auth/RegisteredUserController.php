@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
@@ -42,10 +44,27 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
-
         Auth::login($user);
 
-        return redirect(route('verification.notice', absolute: false))->with('success', 'Registration successful! Please Verify Your Email First ');
+        // Checking User Model Implements_MustVerifyEmail Inerface
+        if ($user instanceof MustVerifyEmail) {
+
+            // Checking Does SMTP Setting Exists In Cache  If Exists Than After Registeration Instantly The Verification Mail Will be Sent If Not Than If Block Will Run
+            if (empty(Cache::get('smtp_config'))) {
+                return redirect(route('verification.notice', absolute: false))
+                    ->with('info', app()->environment('local')
+                    ? 'Registration successful! You Havent Configured SMTP Settings Yet Please Remove MustVerifyEmail Interface From User Model'
+                    : 'Registeration Successfull But Something Went Wrong While Sending Verification Mail Please Try Again Later');
+            }
+
+            // After Registeration The Verification Mail Will be Sent By Default
+            event(new Registered($user));
+
+            return redirect(route('verification.notice', absolute: false))
+                ->with('success', 'Registration successful! Please Check Your Inbox For Verification Mail');
+        } else {
+            return redirect(route('dashboard', absolute: false))
+                ->with('success', 'Registration successful!');
+        }
     }
 }
