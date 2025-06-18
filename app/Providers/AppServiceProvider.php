@@ -39,30 +39,30 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        // if (Schema::hasTable('general_settings')) {
+        if (Schema::hasTable('general_settings')) {
 
-        //     $general_setting = Cache::rememberForever('general_config', fn () => GeneralSetting::first() ?? null);
+            $general_setting = Cache::rememberForever('general_config', fn () => GeneralSetting::first() ?? null);
 
-        //     if (! empty($general_setting)) {
-        //         Config::set('app.name', $general_setting?->app_name);
-        //     }
-        // }
+            if (! empty($general_setting)) {
+                Config::set('app.name', $general_setting?->app_name);
+            }
+        }
 
-        // if (Schema::hasTable('smtp_settings')) {
-        //     $smtp = Cache::rememberForever('smtp_config', fn () => SmtpSetting::first() ?? null);
+        if (Schema::hasTable('smtp_settings')) {
+            $smtp = Cache::rememberForever('smtp_config', fn () => SmtpSetting::first() ?? null);
 
-        //     if (! empty($smtp)) {
-        //         Config::set([
-        //             'mail.default' => $smtp->smtp_mailer,
-        //             'mail.mailers.smtp.scheme' => $smtp->smtp_scheme,
-        //             'mail.mailers.smtp.host' => $smtp->smtp_host,
-        //             'mail.mailers.smtp.port' => $smtp->smtp_port,
-        //             'mail.mailers.smtp.username' => $smtp->smtp_username,
-        //             'mail.mailers.smtp.password' => $smtp->smtp_password,
-        //             'mail.from.address' => $smtp->smtp_mail_from_address,
-        //         ]);
-        //     }
-        // }
+            if (! empty($smtp)) {
+                Config::set([
+                    'mail.default' => $smtp->smtp_mailer,
+                    'mail.mailers.smtp.scheme' => $smtp->smtp_scheme,
+                    'mail.mailers.smtp.host' => $smtp->smtp_host,
+                    'mail.mailers.smtp.port' => $smtp->smtp_port,
+                    'mail.mailers.smtp.username' => $smtp->smtp_username,
+                    'mail.mailers.smtp.password' => $smtp->smtp_password,
+                    'mail.from.address' => $smtp->smtp_mail_from_address,
+                ]);
+            }
+        }
 
     }
 }
