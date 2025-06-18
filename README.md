@@ -65,6 +65,7 @@ composer create-project apexunified/laravel-react-starterkit
 Use this if you want to Manually Setup the project.
 
 ```bash
+
 git clone https://github.com/ApexUnified/Laravel-React-StarterKit.git my-awesome-app
 cd my-awesome-app
 
