@@ -53,7 +53,8 @@
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan key:generate --ansi",
             "@php artisan migrate --graceful --ansi",
-            "npm install"
+            "npm install",
+            "npm run dev"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",

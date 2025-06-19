@@ -35,7 +35,8 @@ class AppServiceProvider extends ServiceProvider
 
         if (app()->environment('local')) {
             Model::shouldBeStrict();
-            URL::forceRootUrl(config('app.url'));
+            // Not Needed Yet
+            // URL::forceRootUrl(config('app.url'));
             URL::forceScheme('http');
         } else {
             URL::forceScheme('https');
