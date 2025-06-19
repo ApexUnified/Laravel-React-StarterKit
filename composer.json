@@ -54,7 +54,7 @@
             "@php artisan key:generate --ansi",
             "@php artisan migrate --graceful --ansi",
             "npm install",
-            "npm run dev"
+            "npm run build"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
