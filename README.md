@@ -2,6 +2,8 @@
 
 A modern, developer-friendly Laravel Starter Kit built with **Laravel**, **React + Inertia.js**, and **Tailwind CSS**. This Starter Kit is designed to streamline your development workflow with clean architecture, powerful tools, and an elegant UI — including support for **dark/light mode**, **rich file uploads**, and more.
 
+![Dashboard Preview](public/assets/images/thumbnail.jpg)
+
 ---
 
 ## 🧱 Stack
@@ -9,7 +11,7 @@ A modern, developer-friendly Laravel Starter Kit built with **Laravel**, **React
 - ✅ **Laravel 12+**
 - ⚛️ **React** with **Inertia.js**
 - 🎨 **Tailwind CSS**
-- 🪄 **Rich Components**
+- ✅ **Rich Components**
 - ☁️ **FilePond** for advanced file uploading
 - 🌑 Light & Dark Theme Support
 - 🔁 Redis Support for Caching & Queues
