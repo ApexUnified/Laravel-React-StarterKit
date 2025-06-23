@@ -20,7 +20,7 @@ class ProfileController extends Controller
     {
         $validated_req = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$request->user()->id,
+            'email' => 'required|email|unique:users,email,' . $request->user()->id,
         ]);
 
         $user = Auth::user();
@@ -29,7 +29,6 @@ class ProfileController extends Controller
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
-
         }
 
         if ($user->save()) {
@@ -65,6 +64,7 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         if ($user->delete()) {
+            Auth::logout();
             return redirect()->route('login')->with('success', 'Account Permanently deleted successfully');
         } else {
             return redirect()->route('profile.index')->withErrors(request()->all())->with('error', 'Failed to delete account');
