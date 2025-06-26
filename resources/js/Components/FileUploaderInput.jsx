@@ -26,7 +26,7 @@ export default function FileUploaderInput({ Multiple = false, InputName, CustomC
         DefaultFile
             ? [
                 {
-                    source: `${asset}assets/images/${imagePathName}}/${DefaultFile}`,
+                    source: `${asset}assets/images/${imagePathName}/${DefaultFile}`,
                     options: { type: 'remote' },
                 },
             ]

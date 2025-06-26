@@ -114,7 +114,7 @@ export default function Header({
         <>
 
             <header
-                className="z-[9999] flex w-full border-gray-200 bg-white lg:border-b dark:border-gray-800 dark:bg-gray-900"
+                className="flex w-full bg-white border-gray-200 lg:border-b dark:border-gray-800 dark:bg-gray-900"
             >
                 <div
                     className="flex flex-col items-center justify-between grow lg:flex-row lg:px-6"
@@ -314,7 +314,7 @@ export default function Header({
 
                                 {NotificationDropdown && (
                                     <div
-                                        className="shadow-2xl dark:bg-gray-900 absolute -right-[240px] mt-[17px] flex h-[300px] w-[350px] flex-col rounded-2xl border border-gray-200 bg-white p-3 sm:w-[361px] lg:right-0 dark:border-gray-800"
+                                        className="shadow-2xl dark:bg-gray-900 absolute z-[1]  mt-[17px] flex h-[300px] w-[250px] flex-col rounded-2xl border border-gray-200 bg-white p-3 sm:w-[361px] lg:right-0 dark:border-gray-800"
                                     >
                                         <div
                                             className="flex items-center justify-between pb-3 mb-3 border-b border-gray-100 dark:border-gray-800"
@@ -540,7 +540,7 @@ export default function Header({
 
 
                         <div
-                            className="relative"
+                            className="relative z-[1]"
                             ref={profileDropdownRef}
                         >
                             <a
