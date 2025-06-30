@@ -43,6 +43,9 @@ namespace App\Models{
  * @property string|null $app_favicon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $app_favicon_url
+ * @property-read mixed $app_main_logo_dark_url
+ * @property-read mixed $app_main_logo_light_url
  * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneralSetting newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneralSetting newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneralSetting query()

@@ -64,6 +64,15 @@ export default function index({ categories }) {
 
             { key: 'name', label: 'Category Name', },
             { key: 'added_at', label: 'Created At' },
+
+            // This Column Can be use For Displaying Profile Image You Can Modify By your Own Need
+            {
+                label: "Demo user Profile",
+                image: true,
+                key: "profile",
+                default: 'Default',
+            },
+
             {
                 label: 'Demo Column',
                 key: 'Demo Column',

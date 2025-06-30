@@ -131,8 +131,7 @@ export default function index({ generalSetting }) {
 
                                             }}
                                             Multiple={false}
-                                            imagePathName={"Logo"}
-                                            DefaultFile={generalSetting?.app_main_logo_dark}
+                                            DefaultFile={generalSetting?.app_main_logo_dark_url && [generalSetting?.app_main_logo_dark_url]}
                                         />
 
 
@@ -148,11 +147,8 @@ export default function index({ generalSetting }) {
 
                                             }}
                                             Multiple={false}
-                                            imagePathName={"Logo"}
-                                            DefaultFile={generalSetting?.app_main_logo_light}
+                                            DefaultFile={generalSetting?.app_main_logo_light_url && [generalSetting?.app_main_logo_light_url]}
                                         />
-
-
 
                                     </div>
                                 </div>
@@ -174,12 +170,9 @@ export default function index({ generalSetting }) {
 
                                             }}
                                             Multiple={false}
-                                            imagePathName={"Logo"}
-                                            DefaultFile={generalSetting?.app_favicon}
+                                            DefaultFile={generalSetting?.app_favicon_url && [generalSetting?.app_favicon_url]}
 
                                         />
-
-
 
 
                                     </div>

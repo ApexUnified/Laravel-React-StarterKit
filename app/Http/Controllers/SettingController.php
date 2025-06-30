@@ -18,7 +18,6 @@ class SettingController extends Controller
     public function generalSetting()
     {
         $generalSetting = GeneralSetting::first();
-
         return Inertia::render('Settings/GeneralSetting/index', compact('generalSetting'));
     }
 
