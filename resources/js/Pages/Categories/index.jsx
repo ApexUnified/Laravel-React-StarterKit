@@ -112,10 +112,20 @@ export default function index({ categories }) {
 
         // It Will Add Action in The Dropdown Of Action in The Table
         const customActions = [
-            {
-                label: "Demo",
-                onClick: (item) => alert("it works") //router.visit(route("courses.show", item.id))
 
+            // Appending Button in Action Dropdon Example
+            {
+                label: "Button",
+                type: "button",
+                onClick: (item) => alert("it I am Button " + item.id) //router.visit(route("courses.show", item.id))
+
+            },
+
+            // Appending Anchor in Action Dropdon Example
+            {
+                label: "Href",
+                type: "link",
+                href: (item) => route("category.index"),
             }
         ]
 
