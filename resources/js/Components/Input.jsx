@@ -1,43 +1,69 @@
-import React from 'react'
+import React from 'react';
 
-export default function Input({ Name, Value, Action, Placeholder, Type, Error, Required = false, Id, InputName, CustomCss = null, ShowPasswordToggle, setShowPasswordToggle, InputRef }) {
+export default function Input({
+    Name,
+    Value,
+    Action = () => {},
+    Placeholder,
+    Type,
+    Error,
+    Required = false,
+    Id,
+    InputName,
+    CustomCss = null,
+    ShowPasswordToggle,
+    setShowPasswordToggle,
+    InputRef,
+}) {
     return (
-        <div className={CustomCss || "w-full"}>
-            <label htmlFor={Id} className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+        <div className={CustomCss || 'w-full'}>
+            <label
+                htmlFor={Id}
+                className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400"
+            >
                 {InputName}
                 {Required && <span className="text-red-500 dark:text-white"> *</span>}
             </label>
             <div className="relative">
-                <input type={ShowPasswordToggle ? "text" : Type} id={Id}
+                <input
+                    type={ShowPasswordToggle ? 'text' : Type}
+                    id={Id}
                     ref={InputRef}
-                    className="dark:bg-dark-900 shadow-theme-xs focus:border-blue-300 focus:ring-blue-500/10 dark:focus:border-blue-800 h-[42px] w-full rounded-lg border border-gray-300 bg-transparent py-2.5  text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden min-w-[250px] mb-2 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+                    className="dark:bg-dark-900 shadow-theme-xs focus:ring-3 focus:outline-hidden mb-2 h-[42px] w-full min-w-[250px] rounded-lg border border-gray-300 bg-transparent py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-300 focus:ring-blue-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-blue-800"
                     placeholder={Placeholder}
                     name={Name}
                     value={Value}
                     onChange={Action}
                     required={Required}
-
-                    {...Type === 'password' ? { autoComplete: 'off' } : {}}
-                    {...Type === "number" ? { min: 0 } : {}}
-
+                    {...(Type === 'password' ? { autoComplete: 'off' } : {})}
+                    {...(Type === 'number' ? { min: 0 } : {})}
                 />
-                {(Error && Type !== "password") &&
-                    <span className="absolute top-1/2 right-3.5 -translate-y-1/2">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fillRule="evenodd" clipRule="evenodd" d="M2.58325 7.99967C2.58325 5.00813 5.00838 2.58301 7.99992 2.58301C10.9915 2.58301 13.4166 5.00813 13.4166 7.99967C13.4166 10.9912 10.9915 13.4163 7.99992 13.4163C5.00838 13.4163 2.58325 10.9912 2.58325 7.99967ZM7.99992 1.08301C4.17995 1.08301 1.08325 4.17971 1.08325 7.99967C1.08325 11.8196 4.17995 14.9163 7.99992 14.9163C11.8199 14.9163 14.9166 11.8196 14.9166 7.99967C14.9166 4.17971 11.8199 1.08301 7.99992 1.08301ZM7.09932 5.01639C7.09932 5.51345 7.50227 5.91639 7.99932 5.91639H7.99999C8.49705 5.91639 8.89999 5.51345 8.89999 5.01639C8.89999 4.51933 8.49705 4.11639 7.99999 4.11639H7.99932C7.50227 4.11639 7.09932 4.51933 7.09932 5.01639ZM7.99998 11.8306C7.58576 11.8306 7.24998 11.4948 7.24998 11.0806V7.29627C7.24998 6.88206 7.58576 6.54627 7.99998 6.54627C8.41419 6.54627 8.74998 6.88206 8.74998 7.29627V11.0806C8.74998 11.4948 8.41419 11.8306 7.99998 11.8306Z" className='fill-red-500 dark:fill-white'></path>
+                {Error && Type !== 'password' && (
+                    <span className="absolute right-3.5 top-1/2 -translate-y-1/2">
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M2.58325 7.99967C2.58325 5.00813 5.00838 2.58301 7.99992 2.58301C10.9915 2.58301 13.4166 5.00813 13.4166 7.99967C13.4166 10.9912 10.9915 13.4163 7.99992 13.4163C5.00838 13.4163 2.58325 10.9912 2.58325 7.99967ZM7.99992 1.08301C4.17995 1.08301 1.08325 4.17971 1.08325 7.99967C1.08325 11.8196 4.17995 14.9163 7.99992 14.9163C11.8199 14.9163 14.9166 11.8196 14.9166 7.99967C14.9166 4.17971 11.8199 1.08301 7.99992 1.08301ZM7.09932 5.01639C7.09932 5.51345 7.50227 5.91639 7.99932 5.91639H7.99999C8.49705 5.91639 8.89999 5.51345 8.89999 5.01639C8.89999 4.51933 8.49705 4.11639 7.99999 4.11639H7.99932C7.50227 4.11639 7.09932 4.51933 7.09932 5.01639ZM7.99998 11.8306C7.58576 11.8306 7.24998 11.4948 7.24998 11.0806V7.29627C7.24998 6.88206 7.58576 6.54627 7.99998 6.54627C8.41419 6.54627 8.74998 6.88206 8.74998 7.29627V11.0806C8.74998 11.4948 8.41419 11.8306 7.99998 11.8306Z"
+                                className="fill-red-500 dark:fill-white"
+                            ></path>
                         </svg>
                     </span>
-                }
+                )}
 
-
-                {Type === "password" && (
+                {Type === 'password' && (
                     <span
-                        className="absolute z-30 pb-2 text-gray-500 -translate-y-1/2 cursor-pointer right-4 top-1/2 dark:text-gray-400"
+                        className="absolute right-4 top-1/2 z-30 -translate-y-1/2 cursor-pointer pb-2 text-gray-500 dark:text-gray-400"
                         onClick={() => setShowPasswordToggle(!ShowPasswordToggle)}
                     >
                         <svg
-
-                            className={ShowPasswordToggle ? "fill-current " : "hidden"}
+                            className={ShowPasswordToggle ? 'fill-current' : 'hidden'}
                             width="20"
                             height="20"
                             viewBox="0 0 20 20"
@@ -52,8 +78,7 @@ export default function Input({ Name, Value, Action, Placeholder, Type, Error, R
                             />
                         </svg>
                         <svg
-
-                            className={!ShowPasswordToggle ? "fill-current " : "hidden"}
+                            className={!ShowPasswordToggle ? 'fill-current' : 'hidden'}
                             width="20"
                             height="20"
                             viewBox="0 0 20 20"
@@ -72,15 +97,8 @@ export default function Input({ Name, Value, Action, Placeholder, Type, Error, R
             </div>
 
             <div className="h-5">
-                {Error &&
-                    (
-                        <p className="text-red-500 dark:text-white mt-1.5">
-                            {Error}
-                        </p>
-                    )
-                }
+                {Error && <p className="mt-1.5 text-red-500 dark:text-white">{Error}</p>}
             </div>
         </div>
-
-    )
+    );
 }
