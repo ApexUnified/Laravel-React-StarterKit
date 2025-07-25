@@ -1,36 +1,39 @@
 import Card from '@/Components/Card';
 import LinkButton from '@/Components/LinkButton';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import BreadCrumb from '@/Components/BreadCrumb'
-import { Head, Link, router, useForm, usePage } from '@inertiajs/react'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import BreadCrumb from '@/Components/BreadCrumb';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import Table from '@/Components/Table';
 import { Label } from '@headlessui/react';
 import { useEffect, useState } from 'react';
 
 export default function index({ categories }) {
-
-
     // Bulk Delete Form Data
     const { props } = usePage();
-    const { data: BulkselectedIds, setData: setBulkSelectedIds, delete: BulkDelete, reset: resetBulkSelectedIds } = useForm({
+    const {
+        data: BulkselectedIds,
+        setData: setBulkSelectedIds,
+        delete: BulkDelete,
+        reset: resetBulkSelectedIds,
+    } = useForm({
         ids: [],
     });
 
-
     // Single Delete Form Data
-    const { data: SingleSelectedId, setData: setSingleSelectedId, delete: SingleDelete, reset: resetSingleSelectedId } = useForm({
+    const {
+        data: SingleSelectedId,
+        setData: setSingleSelectedId,
+        delete: SingleDelete,
+        reset: resetSingleSelectedId,
+    } = useForm({
         id: null,
     });
-
 
     const [columns, setColumns] = useState([]);
     const [customActions, setCustomActions] = useState([]);
 
-
-
     // Also You Can Add Custom Search Inputs In The Table Via its Props Below Are The Example Of States
     // Custom Search States
-
 
     // (
 
@@ -43,15 +46,12 @@ export default function index({ categories }) {
 
     // )
 
-
     // This State Will Be Responsible For Triggering Search Whenever Custom Search Inputs Value Changes
     // Its By Default is False When  Input Value Changes It Will Be True  And Search Happens
     // const [ParentSearched, setParentSearched] = useState(false);
 
     useEffect(() => {
-
         const columns = [
-
             //  If you want to display a badge for a column, you can simply add a badge key to the column definition.
             // The badge key should be a callback function that receives the column's value and returns a string
             //     Example:
@@ -62,14 +62,14 @@ export default function index({ categories }) {
             // }
             // This will apply the provided classes to the badge based on the value of the column.
 
-            { key: 'name', label: 'Category Name', },
+            { key: 'name', label: 'Category Name' },
             { key: 'added_at', label: 'Created At' },
 
             // This Column Can be use For Displaying Profile Image You Can Modify By your Own Need
             {
-                label: "Demo user Profile",
-                image: true,
-                key: "profile",
+                label: 'Demo user Profile',
+                profile: true,
+                key: 'profile',
                 default: 'Default',
             },
 
@@ -89,8 +89,6 @@ export default function index({ categories }) {
                 ),
             },
 
-
-
             // If You Want to Render Custom HTML: Custom HTML with item data
             //   {
             //     label: 'Details',
@@ -109,32 +107,26 @@ export default function index({ categories }) {
             //   },
         ];
 
-
         // It Will Add Action in The Dropdown Of Action in The Table
         const customActions = [
-
             // Appending Button in Action Dropdon Example
             {
-                label: "Button",
-                type: "button",
-                onClick: (item) => alert("it I am Button " + item.id) //router.visit(route("courses.show", item.id))
-
+                label: 'Button',
+                type: 'button',
+                onClick: (item) => alert('it I am Button ' + item.id), //router.visit(route("courses.show", item.id))
             },
 
             // Appending Anchor in Action Dropdon Example
             {
-                label: "Href",
-                type: "link",
-                href: (item) => route("category.index"),
-            }
-        ]
+                label: 'Href',
+                type: 'link',
+                href: (item) => route('category.index'),
+            },
+        ];
 
         setCustomActions(customActions);
         setColumns(columns);
-
     }, []);
-
-
 
     return (
         <>
@@ -142,24 +134,34 @@ export default function index({ categories }) {
                 <Head title="Category" />
 
                 <BreadCrumb
-                    header={"Category"}
-                    parent={"Dashboard"}
-                    parent_link={route("dashboard")}
-                    child={"Category"}
+                    header={'Category'}
+                    parent={'Dashboard'}
+                    parent_link={route('dashboard')}
+                    child={'Category'}
                 />
 
                 <Card
                     Content={
                         <>
-                            <div className="flex flex-wrap justify-end my-3">
+                            <div className="my-3 flex flex-wrap justify-end">
                                 <LinkButton
-                                    Text={"Create Category"}
-                                    URL={route("category.create")}
+                                    Text={'Create Category'}
+                                    URL={route('category.create')}
                                     Icon={
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth={1.5}
+                                            stroke="currentColor"
+                                            className="size-6"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M12 4.5v15m7.5-7.5h-15"
+                                            />
                                         </svg>
-
                                     }
                                 />
                             </div>
@@ -172,10 +174,10 @@ export default function index({ categories }) {
                                 resetSingleSelectedId={resetSingleSelectedId}
                                 BulkDeleteMethod={BulkDelete}
                                 SingleDeleteMethod={SingleDelete}
-                                EditRoute={"category.edit"}
-                                BulkDeleteRoute={"category.deletebyselection"}
-                                SearchRoute={"category.index"}
-                                SingleDeleteRoute={"category.destroy"}
+                                EditRoute={'category.edit'}
+                                BulkDeleteRoute={'category.deletebyselection'}
+                                SearchRoute={'category.index'}
+                                SingleDeleteRoute={'category.destroy'}
                                 items={categories}
                                 props={props}
                                 customActions={customActions}
@@ -251,17 +253,7 @@ export default function index({ categories }) {
                         </>
                     }
                 />
-
-
-
-
-
-
-
-
-            </AuthenticatedLayout >
+            </AuthenticatedLayout>
         </>
     );
-
 }
-

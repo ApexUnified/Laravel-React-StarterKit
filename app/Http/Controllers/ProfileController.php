@@ -55,7 +55,7 @@ class ProfileController extends Controller
         }
     }
 
-    public function deleteAccount(Request $request)
+    public function destroyAccount(Request $request)
     {
         $request->validate([
             'current_password' => 'required|current_password',

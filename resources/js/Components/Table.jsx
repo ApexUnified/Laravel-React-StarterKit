@@ -165,8 +165,8 @@ export default function Table({
         }
 
         // Handle profile image/avatar
-        if (column.image === true) {
-            return column.image && item.profile_url ? (
+        if (column.profile === true) {
+            return column.profile && item.profile_url ? (
                 <img
                     src={item.profile_url}
                     alt="Profile"
@@ -175,6 +175,22 @@ export default function Table({
             ) : (
                 <span className="flex w-full items-center justify-center rounded-full bg-gray-500 text-2xl text-white sm:h-20 sm:w-20">
                     {item[column.default] ?? column.default}
+                </span>
+            );
+        }
+
+        // handle Normal Image
+        if (column.image === true) {
+            const imageUrl = getNestedValue(item, column.url ?? column.key);
+            return imageUrl ? (
+                <img
+                    src={imageUrl}
+                    alt="Image"
+                    className="w-full rounded-full object-cover sm:h-20 sm:w-20"
+                />
+            ) : (
+                <span className="flex w-full items-center justify-center rounded-full bg-gray-800 text-2xl text-white sm:h-20 sm:w-20">
+                    N/A
                 </span>
             );
         }
