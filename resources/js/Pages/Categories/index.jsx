@@ -2,9 +2,9 @@ import Card from '@/Components/Card';
 import LinkButton from '@/Components/LinkButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import BreadCrumb from '@/Components/BreadCrumb';
-import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import Table from '@/Components/Table';
-import { Label } from '@headlessui/react';
+
 import { useEffect, useState } from 'react';
 
 export default function index({ categories }) {
@@ -143,7 +143,7 @@ export default function index({ categories }) {
                 <Card
                     Content={
                         <>
-                            <div className="my-3 flex flex-wrap justify-end">
+                            <div className="flex flex-wrap justify-end my-3">
                                 <LinkButton
                                     Text={'Create Category'}
                                     URL={route('category.create')}

@@ -61,7 +61,7 @@ A modern, developer-friendly Laravel Starter Kit built with **Laravel**, **React
 Use this if you want to Quick Start The Project.
 
 ```bash
-composer create-project apexunified/laravel-react-starterkit
+composer create-project apexunified/laravel-react-starterkit app_name
 ```
 
 Use this if you want to Manually Setup the project.
