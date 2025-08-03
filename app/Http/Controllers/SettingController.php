@@ -17,21 +17,23 @@ class SettingController extends Controller
 
     public function generalSetting()
     {
-        $generalSetting = GeneralSetting::first();
-        return Inertia::render('Settings/GeneralSetting/index', compact('generalSetting'));
+        $general_setting = GeneralSetting::first();
+
+        return Inertia::render('Settings/GeneralSetting/index', compact('general_setting'));
     }
 
     public function updateGeneralSetting(Request $request)
     {
-           $validated_req = $request->validate([
+        $validated_req = $request->validate([
             'app_name' => 'required|min:4|string|max:100',
             'contact_email' => 'required|email',
-            'contact_number' => 'required|numeric',
+            'contact_number' => 'required|regex:/^\+\d+$/',
             ...($request->hasFile('app_main_logo_dark') ? ['app_main_logo_dark' => 'nullable|mimes:png|max:2048'] : []),
             ...($request->hasFile('app_main_logo_light') ? ['app_main_logo_light' => 'nullable|mimes:png|max:2048'] : []),
             ...($request->hasFile('app_favicon') ? ['app_favicon' => 'nullable|mimes:jpg,jpeg,png|max:2048'] : []),
+        ], [
+            'contact_number.regex' => 'The Contact Number must be a valid number And Starting With + Country Code - Example: +8801xxxxxxxxx',
         ]);
-
         $generalSetting = GeneralSetting::first();
 
         $directory = public_path('assets/images/Logo/');
@@ -123,9 +125,9 @@ class SettingController extends Controller
 
     public function smtpSetting()
     {
-        $smtpSetting = SmtpSetting::first();
+        $smtp_setting = SmtpSetting::first();
 
-        return Inertia::render('Settings/SMTPSetting/index', compact('smtpSetting'));
+        return Inertia::render('Settings/SMTPSetting/index', compact('smtp_setting'));
     }
 
     public function updateSmtpSetting(Request $request)
@@ -140,12 +142,12 @@ class SettingController extends Controller
             'smtp_mail_from_address' => 'required|email',
         ]);
 
-        $smtpSetting = SmtpSetting::first();
+        $smtp_setting = SmtpSetting::first();
 
-        if (empty($smtpSetting)) {
+        if (empty($smtp_setting)) {
             SmtpSetting::create($validated_req);
         } else {
-            $smtpSetting->update($validated_req);
+            $smtp_setting->update($validated_req);
         }
 
         return back()->with('success', 'Smtp Setting Updated Successfully');

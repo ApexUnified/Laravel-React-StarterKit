@@ -78,7 +78,7 @@ export default function create() {
                                                 Text={'Create Category'}
                                                 Type={'submit'}
                                                 CustomClass={'w-[200px] '}
-                                                Disabled={processing || data.name === ''}
+                                                Disabled={processing || data.name.trim() === ''}
                                                 Spinner={processing}
                                                 Icon={
                                                     <svg

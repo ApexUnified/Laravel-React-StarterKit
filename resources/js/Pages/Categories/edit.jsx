@@ -78,7 +78,11 @@ export default function edit({ category }) {
                                                 Text={'Update Category'}
                                                 Type={'submit'}
                                                 CustomClass={'w-[200px] '}
-                                                Disabled={processing || data.name === ''}
+                                                Disabled={
+                                                    processing ||
+                                                    data.name.trim() === '' ||
+                                                    data.name.trim() === category.name.trim()
+                                                }
                                                 Spinner={processing}
                                                 Icon={
                                                     <svg

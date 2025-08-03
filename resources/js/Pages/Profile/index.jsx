@@ -3,7 +3,7 @@ import Input from '@/Components/Input';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import BreadCrumb from '@/Components/BreadCrumb';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 
 import React, { useState } from 'react';
 
@@ -86,6 +86,16 @@ export default function index({ user }) {
             },
         });
     };
+
+    const checkIfProfileChanged = (newData) => {
+        const normalize = (val) => val.trim();
+
+        return (
+            normalize(newData.name) !== normalize(user.name) ||
+            normalize(newData.email) !== normalize(user.email)
+        );
+    };
+
     return (
         <AuthenticatedLayout>
             <Head title="Profile" />
@@ -141,11 +151,13 @@ export default function index({ user }) {
                                                     Value={updateProfileData.name}
                                                     Action={(e) => {
                                                         const newName = e.target.value;
+                                                        const newData = {
+                                                            ...updateProfileData,
+                                                            name: newName,
+                                                        };
                                                         setUpdateProfileData('name', newName);
                                                         setPersonalInfoChanged(
-                                                            newName !== user.name ||
-                                                                updateProfileData.email !==
-                                                                    user.email,
+                                                            checkIfProfileChanged(newData),
                                                         );
                                                     }}
                                                     Placeholder={'Enter Name'}
@@ -160,11 +172,14 @@ export default function index({ user }) {
                                                     Value={updateProfileData.email}
                                                     Action={(e) => {
                                                         const newEmail = e.target.value;
+                                                        const newData = {
+                                                            ...updateProfileData,
+                                                            email: newEmail,
+                                                        };
+
                                                         setUpdateProfileData('email', newEmail);
                                                         setPersonalInfoChanged(
-                                                            newEmail !== user.email ||
-                                                                updateProfileData.name !==
-                                                                    user.name,
+                                                            checkIfProfileChanged(newData),
                                                         );
                                                     }}
                                                     Placeholder={'Enter Email'}
@@ -198,8 +213,8 @@ export default function index({ user }) {
                                             Disabled={
                                                 UpdateProfileProcessing ||
                                                 !personalInfoChanged ||
-                                                updateProfileData.name === '' ||
-                                                updateProfileData.email === ''
+                                                updateProfileData.name.trim() === '' ||
+                                                updateProfileData.email.trim() === ''
                                             }
                                             Spinner={UpdateProfileProcessing}
                                         />
@@ -306,9 +321,12 @@ export default function index({ user }) {
                                             }
                                             Disabled={
                                                 UpdatePasswordProcessing ||
-                                                updatePasswordData.current_password === '' ||
-                                                updatePasswordData.password === '' ||
-                                                updatePasswordData.password_confirmation === ''
+                                                updatePasswordData.current_password.trim() === '' ||
+                                                updatePasswordData.password.trim() === '' ||
+                                                updatePasswordData.password_confirmation.trim() ===
+                                                    '' ||
+                                                updatePasswordData.password.trim() !=
+                                                    updatePasswordData.password_confirmation.trim()
                                             }
                                             Spinner={UpdatePasswordProcessing}
                                         />
