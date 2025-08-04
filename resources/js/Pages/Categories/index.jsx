@@ -116,6 +116,42 @@ export default function index({ categories }) {
                 onClick: (item) => alert('it I am Button ' + item.id), //router.visit(route("courses.show", item.id))
             },
 
+            {
+                label: 'Button',
+                type: 'button',
+                onClick: (item) => alert('it I am Button ' + item.id), //router.visit(route("courses.show", item.id))
+            },
+
+            {
+                label: 'Button',
+                type: 'button',
+                onClick: (item) => alert('it I am Button ' + item.id), //router.visit(route("courses.show", item.id))
+            },
+
+            {
+                label: 'Button',
+                type: 'button',
+                onClick: (item) => alert('it I am Button ' + item.id), //router.visit(route("courses.show", item.id))
+            },
+
+            {
+                label: 'Button',
+                type: 'button',
+                onClick: (item) => alert('it I am Button ' + item.id), //router.visit(route("courses.show", item.id))
+            },
+
+            {
+                label: 'Button',
+                type: 'button',
+                onClick: (item) => alert('it I am Button ' + item.id), //router.visit(route("courses.show", item.id))
+            },
+
+            {
+                label: 'Button',
+                type: 'button',
+                onClick: (item) => alert('it I am Button ' + item.id), //router.visit(route("courses.show", item.id))
+            },
+
             // Appending Anchor in Action Dropdon Example
             {
                 label: 'Href',

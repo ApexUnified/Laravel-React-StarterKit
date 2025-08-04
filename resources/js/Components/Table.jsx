@@ -3,6 +3,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import debounce from 'lodash.debounce';
 import React, { useEffect, useRef, useState } from 'react';
 import Input from './Input';
+import { createPortal } from 'react-dom';
 
 export default function Table({
     resetSingleSelectedId,
@@ -39,6 +40,8 @@ export default function Table({
     const [DeleteSingleProcessing, setDeleteSingleProcessing] = useState(false);
     const [selectedIds, setSelectedIds] = useState([]);
     const dropdownRefs = useRef({});
+    const dropdownElements = useRef({});
+
     const searchInputRef = useRef(null);
 
     const getNestedValue = (obj, path) => {
@@ -144,6 +147,36 @@ export default function Table({
             }
         }
     }, [selectedIds]);
+
+    const updateDropdownPosition = () => {
+        Object.keys(dropdownRefs.current).forEach((id) => {
+            const el = dropdownRefs.current[id];
+            const dropdownEl = dropdownElements.current[id];
+            if (!el || !dropdownEl) return;
+
+            const rect = el.getBoundingClientRect();
+            const top = rect.top - 8;
+            const right = window.innerWidth - rect.right - 8;
+
+            dropdownEl.style.top = `${top}px`;
+            dropdownEl.style.right = `${right}px`;
+            dropdownEl.style.left = '';
+        });
+    };
+
+    // DropDown Position Update Dynamically
+    useEffect(() => {
+        window.addEventListener('resize', updateDropdownPosition);
+        window.addEventListener('scroll', updateDropdownPosition, true);
+
+        const timeout = setTimeout(updateDropdownPosition, 10);
+
+        return () => {
+            window.removeEventListener('resize', updateDropdownPosition);
+            window.removeEventListener('scroll', updateDropdownPosition, true);
+            clearTimeout(timeout);
+        };
+    }, [openDropdownId]);
 
     // New function to render cell content
     const renderCell = (item, column) => {
@@ -328,7 +361,7 @@ export default function Table({
                         </thead>
                         <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                             {items?.data?.map((item, index) => (
-                                <tr key={index}>
+                                <tr key={index} className="relative">
                                     {BulkDeleteMethod && (
                                         <td className="py-3 pr-5 whitespace-nowrap sm:pr-5">
                                             <div className="flex items-center col-span-3">
@@ -351,7 +384,7 @@ export default function Table({
                                             className="py-3 pr-5 whitespace-nowrap sm:pr-5"
                                         >
                                             <div className="flex items-center col-span-3">
-                                                <div className="flex items-center gap-3 text-sm font-medium text-gray-700 dark:text-gray-400">
+                                                <div className="flex items-center gap-3 text-sm font-medium text-gray-700 text-wrap dark:text-gray-400">
                                                     {renderCell(item, column)}
                                                 </div>
                                             </div>
@@ -391,88 +424,108 @@ export default function Table({
                                                             />
                                                         </svg>
                                                     </button>
-                                                    {openDropdownId === item.id && (
-                                                        <div
-                                                            className={`relative right-0 z-[9999] mt-2 w-44 rounded-lg bg-slate-50 shadow-lg dark:bg-white/10 dark:text-white/90 dark:hover:bg-white/10 ${
-                                                                openDropdownId === 1
-                                                                    ? 'mb-5 mt-0'
-                                                                    : ''
-                                                            }`}
-                                                        >
-                                                            <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-                                                                {EditRoute && (
-                                                                    <li>
-                                                                        <Link
-                                                                            href={route(
-                                                                                EditRoute,
-                                                                                RouteParameterKey
-                                                                                    ? item[
-                                                                                          RouteParameterKey
-                                                                                      ]
-                                                                                    : item.id,
-                                                                            )}
-                                                                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                                        >
-                                                                            Edit
-                                                                        </Link>
-                                                                    </li>
-                                                                )}
 
-                                                                {/* Custom Actions */}
-                                                                {customActions.map(
-                                                                    (action, idx) => (
-                                                                        <li key={idx}>
-                                                                            {action.type ===
-                                                                                'button' && (
-                                                                                <button
-                                                                                    onClick={() =>
-                                                                                        action.onClick(
-                                                                                            item,
-                                                                                        )
-                                                                                    }
-                                                                                    className="block w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                                                >
-                                                                                    {action.label}
-                                                                                </button>
-                                                                            )}
-
-                                                                            {action.type ===
-                                                                                'link' && (
-                                                                                <Link
-                                                                                    href={action.href(
-                                                                                        item,
-                                                                                    )}
-                                                                                    className="block w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                                                >
-                                                                                    {action.label}
-                                                                                </Link>
-                                                                            )}
+                                                    {/* Dropdown - Always appears above button with proper spacing */}
+                                                    {openDropdownId === item.id &&
+                                                        createPortal(
+                                                            <div
+                                                                className="fixed z-[99999] w-44 rounded-lg border border-gray-200 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-800 sm:w-48"
+                                                                ref={(el) =>
+                                                                    (dropdownElements.current[
+                                                                        item.id
+                                                                    ] = el)
+                                                                }
+                                                            >
+                                                                <ul
+                                                                    className="py-1 overflow-y-scroll text-sm text-gray-700 scrollbar-thin dark:scrollbar-thumb-white scrollbar-thumb-blue-500 scrollbar-track-transparent dark:text-gray-200"
+                                                                    style={{ maxHeight: '180px' }}
+                                                                >
+                                                                    {EditRoute && (
+                                                                        <li>
+                                                                            <Link
+                                                                                href={route(
+                                                                                    EditRoute,
+                                                                                    RouteParameterKey
+                                                                                        ? item[
+                                                                                              RouteParameterKey
+                                                                                          ]
+                                                                                        : item.id,
+                                                                                )}
+                                                                                className="block px-3 py-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                                            >
+                                                                                Edit
+                                                                            </Link>
                                                                         </li>
-                                                                    ),
-                                                                )}
+                                                                    )}
 
-                                                                {DeleteAction && (
-                                                                    <li>
-                                                                        <button
-                                                                            type="button"
-                                                                            className="block w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                                            onClick={() => {
-                                                                                setSelectedIds([]);
-                                                                                setSelectedIds([
-                                                                                    item.id,
-                                                                                ]);
-                                                                                setDeleteSingleConfirmationModal(
-                                                                                    true,
-                                                                                );
-                                                                            }}
-                                                                        >
-                                                                            Delete
-                                                                        </button>
-                                                                    </li>
-                                                                )}
-                                                            </ul>
-                                                        </div>
-                                                    )}
+                                                                    {/* Custom Actions */}
+                                                                    {customActions.map(
+                                                                        (action, idx) => (
+                                                                            <li key={idx}>
+                                                                                {action.type ===
+                                                                                    'button' && (
+                                                                                    <button
+                                                                                        onClick={() => {
+                                                                                            action.onClick(
+                                                                                                item,
+                                                                                            );
+                                                                                            setOpenDropdownId(
+                                                                                                null,
+                                                                                            ); // Close dropdown after action
+                                                                                        }}
+                                                                                        className="block w-full px-3 py-2 text-left transition-colors hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                                                    >
+                                                                                        {
+                                                                                            action.label
+                                                                                        }
+                                                                                    </button>
+                                                                                )}
+
+                                                                                {action.type ===
+                                                                                    'link' && (
+                                                                                    <Link
+                                                                                        href={action.href(
+                                                                                            item,
+                                                                                        )}
+                                                                                        className="block w-full px-3 py-2 text-left transition-colors hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                                                    >
+                                                                                        {
+                                                                                            action.label
+                                                                                        }
+                                                                                    </Link>
+                                                                                )}
+                                                                            </li>
+                                                                        ),
+                                                                    )}
+
+                                                                    {DeleteAction && (
+                                                                        <li>
+                                                                            <button
+                                                                                type="button"
+                                                                                className="block w-full px-3 py-2 text-left text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
+                                                                                onClick={() => {
+                                                                                    setSelectedIds(
+                                                                                        [],
+                                                                                    );
+                                                                                    setSelectedIds([
+                                                                                        item.id,
+                                                                                    ]);
+                                                                                    setDeleteSingleConfirmationModal(
+                                                                                        true,
+                                                                                    );
+                                                                                    setOpenDropdownId(
+                                                                                        null,
+                                                                                    ); // Close dropdown
+                                                                                }}
+                                                                            >
+                                                                                Delete
+                                                                            </button>
+                                                                        </li>
+                                                                    )}
+                                                                </ul>
+                                                            </div>,
+                                                            document.body,
+                                                        )}
                                                 </div>
                                             </div>
                                         </td>
