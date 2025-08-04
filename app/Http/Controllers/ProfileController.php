@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
 use Inertia\Inertia;
 
 class ProfileController extends Controller
@@ -20,8 +21,18 @@ class ProfileController extends Controller
     {
         $validated_req = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $request->user()->id,
+            'email' => 'required|email|unique:users,email,'.$request->user()->id,
         ]);
+        $throttleKey = 'profile_update'.$request->user()->id;
+
+        if (RateLimiter::tooManyAttempts($throttleKey, 3)) {
+            $seconds = RateLimiter::availableIn($throttleKey);
+
+            return redirect()->route('profile.index')->with('error', 'Too many attempts. Try again After '.ceil($seconds / 60).' minutes.');
+
+        }
+
+        RateLimiter::hit($throttleKey, 900);
 
         $user = Auth::user();
 
@@ -46,6 +57,16 @@ class ProfileController extends Controller
             'password_confirmation' => 'required|same:password',
         ]);
 
+        $throttleKey = 'password_update_'.$request->user()->id;
+        if (RateLimiter::tooManyAttempts($throttleKey, 1)) {
+            $seconds = RateLimiter::availableIn($throttleKey);
+
+            return redirect()->route('profile.index')->with('error', 'Too many attempts. Try again After '.ceil($seconds / 60).' minutes.');
+
+        }
+
+        RateLimiter::hit($throttleKey, 900);
+
         $user = Auth::user();
 
         if ($user->update(['password' => bcrypt($request->password)])) {
@@ -65,6 +86,7 @@ class ProfileController extends Controller
 
         if ($user->delete()) {
             Auth::logout();
+
             return redirect()->route('login')->with('success', 'Account Permanently deleted successfully');
         } else {
             return redirect()->route('profile.index')->withErrors(request()->all())->with('error', 'Failed to delete account');
