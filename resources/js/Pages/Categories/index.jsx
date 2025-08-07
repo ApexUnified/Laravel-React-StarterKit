@@ -179,7 +179,7 @@ export default function index({ categories }) {
                 <Card
                     Content={
                         <>
-                            <div className="flex flex-wrap justify-end my-3">
+                            <div className="my-3 flex flex-wrap justify-end">
                                 <LinkButton
                                     Text={'Create Category'}
                                     URL={route('category.create')}
@@ -231,7 +231,6 @@ export default function index({ categories }) {
                                 SingleDeleteMethod={SingleDelete}
                                 EditRoute={"courses.edit"}
                                 BulkDeleteRoute={"courses.destroybyselection"}
-                                SearchRoute={"courses.index"}
                                 SingleDeleteRoute={"courses.destroy"}
                                 ViewRoute={"courses.show"}
                                 items={courses}
@@ -241,8 +240,18 @@ export default function index({ categories }) {
                                 This is Responsible For Handling When Search Will Happen
                                 ParentSearched={ParentSearched}
 
+
+                                And this is required For Searching
+                                SearchRoute={"courses.index"}
+
                                 As I Told Earlier This Prop Will Be Use For Sending Searched Params To Search Route (Backend)
                                 searchProps={{ instructor_id: instructor_id, category_id: category_id }}
+
+                                it will allow You to Search
+                                Search={true}
+
+                                If this True Than It Will SHow The Default Search That Is In The Table
+                                DefaultSearchInput={true}
 
                                 This Prop Will Render Custom Search Inputs
                                 customSearch={
