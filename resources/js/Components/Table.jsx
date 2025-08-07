@@ -95,7 +95,7 @@ export default function Table({
 
     const debouncedSearch = useRef(null);
 
-    seEffect(() => {
+    useEffect(() => {
         debouncedSearch.current = debounce((value) => {
             router.get(
                 route(SearchRoute, {
