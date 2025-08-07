@@ -16,30 +16,29 @@ export default function Sidebar({
     const isLargeScreen = width >= 1025;
     const prevIsLargeScreenRef = useRef(isLargeScreen);
 
+    // Always read from localStorage on initial load
+    useEffect(() => {
+        const saved = localStorage.getItem('sidebarToggle');
+        if (saved !== null) {
+            setSidebarToggle(JSON.parse(saved));
+        } else {
+            setSidebarToggle(false);
+            localStorage.setItem('sidebarToggle', JSON.stringify(false));
+        }
+    }, []);
+
+    // Save sidebarToggle to localStorage on change
+    useEffect(() => {
+        localStorage.setItem('sidebarToggle', JSON.stringify(sidebarToggle));
+    }, [sidebarToggle]);
+
+    // Hide sidebar when resizing to small screen
     useEffect(() => {
         if (prevIsLargeScreenRef.current && !isLargeScreen && sidebarToggle) {
             setSidebarToggle(false);
         }
         prevIsLargeScreenRef.current = isLargeScreen;
     }, [isLargeScreen, sidebarToggle]);
-
-    useEffect(() => {
-        if (isLargeScreen) {
-            const saved = localStorage.getItem('sidebarToggle');
-            if (saved === null) {
-                setSidebarToggle(false);
-                localStorage.setItem('sidebarToggle', JSON.stringify(false));
-            } else {
-                setSidebarToggle(JSON.parse(saved));
-            }
-        }
-    }, [isLargeScreen]);
-
-    useEffect(() => {
-        if (isLargeScreen) {
-            localStorage.setItem('sidebarToggle', JSON.stringify(sidebarToggle));
-        }
-    }, [sidebarToggle, isLargeScreen]);
 
     return (
         <>
@@ -89,7 +88,7 @@ export default function Sidebar({
                     </button>
                 </div>
 
-                <div className="flex flex-col flex-1 overflow-y-auto duration-300 ease-linear no-scrollbar">
+                <div className="no-scrollbar flex flex-1 flex-col overflow-y-auto duration-300 ease-linear">
                     <nav>
                         <div>
                             <h3 className="mb-4 text-xs uppercase leading-[20px] text-gray-400">
@@ -116,7 +115,7 @@ export default function Sidebar({
                                 </svg>
                             </h3>
 
-                            <ul className="flex flex-col gap-4 mb-6">
+                            <ul className="mb-6 flex flex-col gap-4">
                                 <li>
                                     <Link
                                         href={route('dashboard')}
